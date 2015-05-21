@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<link rel="stylesheet"  href="lib/jquery/_assets/css/jqm-docs.css"/> 
+<link rel="stylesheet"  href="lib/jquery/jquery.mobile.css" /> 
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery.mobile.js"></script>
+<script type="text/javascript" src="js/dropbox_ross.js"></script>
+<script type="text/javascript" src="js/dropboxHandler.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+</head>
+<body> 
+
+<div data-role="page" data-theme="d" id="filePage">
+
+
+  	<div data-role="header" data-theme="a" class="ui-bar">
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a">
+              <div data-role="button" data-inline="true" data-icon="home"
+		onclick="changePage('#indexPage');">Home</div>
+	    </div>
+            <!--
+            <div class="ui-block-b">
+               <div id="dropboxLoginButton" data-role="button" data-theme="b" onclick='dropbox.link();' >Login to Dropbox</div>                
+           </div>
+
+            <div class="ui-block-c">
+               <div id="dropboxLogoutButton" data-role="button" data-theme="b" onclick="dropboxHandler.logout();" >Logout from Dropbox</div>                
+
+	          </div>
+            -->
+	  </div>
+	</div>
+
+
+   <div data-role="content" data-theme="d">
+      <!--
+       <div  data-role="button" onclick=openEmptyFile(); >New File</div> -->
+       
+      <div  data-role="button" onclick="dropbox.link();">Dropbox Link</div>  
+      <a data-role="button" href="index_db.html" target="_blank">Dropbox</a>
+      <div  data-role="button" onclick="saveCurrentFile();">Save</div>       		  
+      <div  data-role="button" onclick="saveAsPrompt();">Save As</div>       
+      <div  data-role="button" onclick="encryptFile();">Save As Password Protected File</div>
+      <!-- <div data-role="button"
+      onclick="$.mobile.changePage('dialog.html')" >Save As</div> -->
+      <a href="list.html" data-role="button" >List Files</a> 
+     <!-- <div  data-role="button" onclick=onSaveClicked();>Add Logo to iPhotos</div> -->
+       
+     <!--<button id="save" >Add Logo to iPhotos</button> -->
+       
+       
+      <!--
+      <div  data-role="button" onclick=dropboxHandler.saveToDropboxPage();>Save Files to Dropbox</div>
+
+      <a href="dropboxList.html" data-role="button" >List Dropbox Files</a>
+      -->
+       
+       <!--
+       <div data-role="button" data-inline="true" onclick="showAddLogo();"><h1>Add Logo</h1></div>
+       <div data-role="button" data-inline="true" onclick="showClearLogo();"><h1>Clear Logo</h1></div>
+       
+        -->
+   </div>
+</div>
+
+	
+</body>
+</html>

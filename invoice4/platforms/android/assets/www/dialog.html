@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<link rel="stylesheet"  href="lib/jquery/_assets/css/jqm-docs.css"/> 
+<link rel="stylesheet"  href="lib/jquery/jquery.mobile.css" /> 
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery.mobile.js"></script>
+</head>
+<body> 
+
+<div data-role="page" id="dialogPage">
+	
+  	<div data-role="header" data-theme="a" class="ui-bar">
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a">
+              <div data-role="button" data-inline="true" data-icon="home"
+		onclick="changePage('#indexPage');">Home</div>
+	    </div>
+            <div class="ui-block-b">
+            </div>
+
+            <div class="ui-block-c">
+               <span id="filePage-fname" style="vertical-align:middle;position: absolute; right: 50px; top: .4em;"></span>
+	    </div>
+	  </div>
+	</div>
+
+
+  
+		<div data-role="content">
+			<div data-role="fieldcontain">
+                            <label for="name">Enter File Name:</label>
+                            <input type="text" name="name"
+			id="saveasname" onfocus="SocialCalc.CmdGotFocus(this);" value=""  />
+                        </div>
+			
+			<div data-role="button"
+		   	   onclick="saveFileSubmit();">Submit</div>
+			   
+			<div data-role="button" onclick="$.mobile.changePage('file.html')">Cancel</a>    
+		</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+	<!-- Change this if you want to allow scaling -->
+    <meta name="viewport" content="width=default-width, user-scalable=no" />
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <title>Invoice</title>
+
+
+<link rel="stylesheet"  href="lib/jquery/_assets/css/jqm-docs.css"/> 
+<link rel="stylesheet"  href="lib/jquery/jquery.mobile.css" /> 
+
+
+	<!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="EmailComposer.js"></script>
+	<script type="text/javascript" charset="utf-8" src="PrintPlugin.js"></script>
+	<script type="text/javascript" charset="utf-8" src="ChildBrowser.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+
+	function onBodyLoad()
+	{
+		document.addEventListener("deviceready",onDeviceReady,false);
+	}
+
+	/* When this function is called, PhoneGap has been initialized and is ready to roll */
+	function onDeviceReady()
+	{
+              ChildBrowser.install();
+	}
+
+   </script>
+
+<!-- The following are the core app -->
+<script type="text/javascript" src="lib/aspiring/socialcalcconstants.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalc-3.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalctouch.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalctableeditor.js"></script>
+<script type="text/javascript" src="lib/aspiring/formatnumber2.js"></script>
+<script type="text/javascript" src="lib/aspiring/formula1.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalcpopup.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalcspreadsheetcontrol.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalcworkbook.js"></script>
+<script type="text/javascript" src="lib/aspiring/socialcalcworkbookcontrol.js"></script>
+<script type="text/javascript" src="lib/aspiring/json2.js"></script>
+
+
+<!-- The following are jquery -->
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jquery/jquery.mobile.js"></script>
+
+<!-- The following are graphing -->
+<script type="text/javascript"
+    src="lib/graphing/jquery.flot.min.js">
+</script>
+<script type="text/javascript"
+    src="lib/graphing/jquery.sparkline.min.js">
+</script>
+<script type="text/javascript" src="lib/graphing/Highcharts-2/js/highcharts.js"></script>
+<script type="text/javascript" src="lib/graphing/Highcharts-2/js/themes/gray.js"></script>
+<script type="text/javascript"  src="lib/graphing/Highcharts-2/js/modules/exporting.js"></script>
+
+
+<!-- The following is called after highcharts is loaded -->
+<script type="text/javascript" src="AppGeneral.js"></script>
+
+
+  </head>
+  <body onload="onBodyLoad()">
+
+<div data-role="page" class="type-index" id="indexPage">
+  
+<div data-role="header" data-theme="d" data-position="fixed" class="ui-bar">
+  
+<div class="ui-grid-b">
+  <div class="ui-block-a">
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">    
+    <div data-role="button" data-inline="true" onclick="showEmailComposer();">Email</div>
+    <div data-role="button" data-inline="true" onclick="showPrintDialog();">Print</div>
+    <a href="file.html" data-role="button" data-inline="true">File</a>
+    </div>
+  </div>
+  <div class="ui-block-b">
+       <span>Editing XYZ</span>
+  </div>
+
+  <div class="ui-block-c">
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">        
+     <div data-role="button" onclick="showBuyLink();">Buy</div>
+     <div data-role="button" onclick="showHelp();">Help</div>
+     </div>
+  </div>
+
+</div> <!-- ui-grid-b -->
+
+</div> <!-- header -->
+
+ 
+  <div id="workbookControl" style="background-color:#80A9F3;">
+    </div>
+
+     <div id="tableeditor" style="margin:8px 0px 10px 0px;">editor goes here</div> 
+
+
+   <div id="msg" onclick="this.innerHTML='&nbsp;';"></div> 
+
+
+    
+<textarea name="savestr" id="sheetdata" style="display:none;">
+{"numsheets":1,"currentid":"sheet1","currentname":"Sheet1","sheetArr":{"sheet1":{"sheetstr":{"savestr":"version:1.5\ncell:F1:colspan:2\ncell:B2:t:INVOICE:b:1:1:1:1:l:2:f:4:cf:1:colspan:7:rowspan:1\ncell:C2:t::b:3::2::l:2:f:4:cf:1\ncell:D2:t::b:3::2::l:2:f:4:cf:1\ncell:E2:t::b:3::2::l:2:f:4:cf:1\ncell:F2:t::b:3::2::l:2:f:4:cf:1\ncell:G2:t::b:3::2::l:2:f:4:cf:1\ncell:H2:t::b:3:3:2::l:2:f:4:cf:1\ncell:A3:b::3:::l:2:f:5\ncell:B3:b:2:::3:l:2:f:5\ncell:C3:l:2:f:5\ncell:D3:l:2:f:5\ncell:E3:l:2:f:5\ncell:F3:l:2:f:5\ncell:G3:l:2:f:5\ncell:H3:b:2:3:::l:2:f:5\ncell:A4:b::3:::l:2:f:5\ncell:B4:b::::3:l:2:f:2\ncell:C4:t:BILL TO\\c:l:2:f:2\ncell:D4:l:2:f:2:bg:1:cf:2\ncell:E4:t:FROM\\c:l:2:f:2:cf:2\ncell:F4:l:2:f:2:bg:1:cf:2:colspan:2\ncell:G4:l:2:f:2:cf:2\ncell:H4:b::3:::l:2:f:5\ncell:A5:b::3:::l:2:f:5\ncell:B5:b::::3:l:2:f:3\ncell:C5:t:ADDRESS\\c:l:2:f:2\ncell:D5:l:2:f:5:bg:1:cf:2\ncell:E5:t:ADDRESS\\c:l:2:f:2:cf:2\ncell:F5:l:2:f:5:bg:1:cf:2:colspan:2\ncell:G5:t::l:2:f:5:cf:2\ncell:H5:t::b::3:::l:2:f:5:cf:2\ncell:A6:b::3:::l:2:f:5\ncell:B6:b::::3:l:2:f:3\ncell:C6:l:2:f:2\ncell:D6:l:2:f:5:bg:1:cf:2\ncell:E6:l:2:f:2:cf:2\ncell:F6:l:2:f:5:bg:1:cf:2:colspan:2\ncell:G6:l:2:f:5:cf:2\ncell:H6:b::3:::l:2:f:5:cf:2\ncell:A7:b::3:::l:2:f:5\ncell:B7:b::::3:l:2:f:3\ncell:C7:l:2:f:2\ncell:D7:l:2:f:5:bg:1:cf:2\ncell:E7:l:2:f:2:cf:2\ncell:F7:l:2:f:5:bg:1:cf:2:colspan:2\ncell:G7:l:2:f:5:cf:2\ncell:H7:b::3:::l:2:f:5:cf:2\ncell:A8:b::3:::l:2:f:5\ncell:B8:b::::3:l:2:f:3\ncell:C8:t:Phone\\c:l:2:f:5:cf:2\ncell:D8:l:2:f:5:bg:1:cf:2\ncell:E8:t:Phone\\c:l:2:f:5:cf:2\ncell:F8:l:2:f:5:bg:1:cf:2:colspan:2\ncell:G8:l:2:f:5:cf:2\ncell:H8:b::3:::l:2:f:5\ncell:A9:b::3:::l:2:f:5\ncell:B9:b::::3:l:2:f:3\ncell:C9:l:2:f:3:cf:2\ncell:D9:l:2:f:3:cf:2\ncell:E9:l:2:f:3:cf:2\ncell:F9:l:2:f:5:cf:2\ncell:G9:l:2:f:5:cf:2\ncell:H9:b::3:::l:2:f:5\ncell:A10:b::3:::l:2:f:5\ncell:B10:b::::3:l:2:f:2\ncell:C10:l:2:f:2:cf:2\ncell:D10:l:2:f:2:cf:2\ncell:E10:l:2:f:2:cf:2\ncell:F10:l:2:f:5:cf:2\ncell:G10:l:2:f:5:cf:2\ncell:H10:b::3:::l:2:f:5\ncell:A11:b::3:::l:2:f:5\ncell:B11:b::::3:l:2:f:5\ncell:C11:t:INVOICE # \\c:l:2:f:2:cf:2\ncell:D11:v:1:l:2:f:2:cf:2\ncell:E11:l:1:f:5\ncell:F11:l:2:f:5:cf:2\ncell:G11:l:2:f:5:cf:2\ncell:H11:b::3:::l:2:f:5\ncell:A12:b::3:::l:2:f:5\ncell:B12:b::::3:l:2:f:5\ncell:C12:l:2:f:2:cf:2\ncell:D12:l:2:f:2:cf:2\ncell:E12:l:1:f:5\ncell:F12:l:2:f:2\ncell:G12:l:2:f:2\ncell:H12:b::3:::l:2:f:5\ncell:A13:b::3:::l:2:f:5\ncell:B13:b::::3:l:2:f:5\ncell:C13:t:INVOICE DATE\\c:l:2:f:2:cf:2\ncell:D13:vtc:nd:40775:08/20/11:l:2:f:2:cf:2:ntvf:4\ncell:E13:l:1:f:5\ncell:F13:l:2:f:2\ncell:G13:l:2:f:2\ncell:H13:b::3:::l:2:f:5\ncell:A14:b::3:::l:2:f:5\ncell:B14:b::::3:l:2:f:2:cf:2\ncell:C14:l:2:f:2:cf:2\ncell:D14:b:::3::l:2:f:2:cf:2\ncell:E14:l:2:f:2:cf:2\ncell:F14:l:2:f:2\ncell:G14:l:2:f:2\ncell:H14:b::3:::l:2:f:5\ncell:A15:b::3:::l:2:f:5\ncell:B15:b::::3:l:2:f:5\ncell:C15:t:Date of Service:b:3:3:3:3:l:2:f:2:cf:2\ncell:D15:t:Description:b:3::3:3:l:2:f:2:cf:2:colspan:2:rowspan:1\ncell:E15:t::b:3:3:3::l:2:f:2:cf:2\ncell:F15:t:Currency (Eg. - USD):b:3:3:3:3:l:2:f:2:cf:2\ncell:G15:t:Amount:b:3:3:3:3:l:2:f:2:cf:2\ncell:H15:b::3:::l:2:f:5\ncell:A16:b::3:::l:2:f:5\ncell:B16:b::1::1:l:2:f:5\ncell:C16:b:1:::1:l:2:f:5:cf:2:ntvf:4\ncell:D16:b:3::::l:2:f:5:cf:2:colspan:2:rowspan:1\ncell:E16:t::b:3::::l:2:f:5:cf:2\ncell:F16:b:3::::l:2:f:5\ncell:G16:v:1:b:1:1:::l:2:f:5:ntvf:1\ncell:H16:b::3:::l:2:f:5\ncell:A17:b::3:::l:2:f:5\ncell:B17:b::3::3:l:2:f:5:cf:2\ncell:C17:l:2:f:5:cf:2:ntvf:4\ncell:D17:l:2:f:5:cf:2:colspan:2\ncell:E17:l:2:f:5:cf:2\ncell:F17:l:2:f:5\ncell:G17:b::1:::l:2:f:5:ntvf:1\ncell:H17:b::3:::l:2:f:5\ncell:A18:b::3:::l:2:f:5\ncell:B18:b::3::3:l:2:f:5:cf:2:ntvf:3\ncell:C18:l:2:f:5:cf:2:ntvf:4\ncell:D18:l:2:f:5:cf:2:colspan:2\ncell:E18:l:2:f:5:cf:2\ncell:F18:l:2:f:5\ncell:G18:b::1:::l:2:f:5:ntvf:1\ncell:H18:b::3:::l:2:f:5\ncell:A19:b::3:::l:2:f:5\ncell:B19:b::3::3:l:2:f:5:cf:2:ntvf:3\ncell:C19:l:2:f:5:cf:2:ntvf:4\ncell:D19:l:2:f:5:cf:2:colspan:2\ncell:E19:l:2:f:5:cf:2\ncell:F19:l:2:f:5\ncell:G19:b::1:::l:2:f:5:ntvf:1\ncell:H19:b::3:::l:2:f:5\ncell:A20:b::3:::l:2:f:5\ncell:B20:b::3::3:l:2:f:5:cf:2:ntvf:3\ncell:C20:l:2:f:5:cf:2:ntvf:4\ncell:D20:l:2:f:5:cf:2:colspan:2\ncell:E20:l:2:f:5:cf:2\ncell:F20:l:2:f:5\ncell:G20:b::1:::l:2:f:5:ntvf:1\ncell:H20:b::3:::l:2:f:5\ncell:A21:b::3:::l:2:f:5\ncell:B21:b::3::3:l:2:f:5:cf:2:ntvf:3\ncell:C21:l:2:f:5:cf:2:ntvf:4\ncell:D21:l:2:f:5:cf:2:colspan:2\ncell:E21:l:2:f:5:cf:2\ncell:F21:l:2:f:5\ncell:G21:b::1:::l:2:f:5:ntvf:1\ncell:H21:b::3:::l:2:f:5\ncell:A22:b::3:::l:2:f:5\ncell:B22:b::3::3:l:2:f:5:cf:2:ntvf:3\ncell:C22:l:2:f:5:cf:2:ntvf:4\ncell:D22:l:2:f:5:cf:2:colspan:2\ncell:E22:l:2:f:5:cf:2\ncell:F22:l:2:f:5\ncell:G22:b::1:::l:2:f:5:ntvf:1\ncell:H22:b::3:::l:2:f:5\ncell:A23:b::3:::l:2:f:5\ncell:B23:b::3::3:l:2:f:5:cf:2\ncell:C23:l:2:f:5:cf:2:ntvf:4\ncell:D23:l:2:f:5:cf:2:colspan:2\ncell:E23:l:2:f:5:cf:2\ncell:F23:l:2:f:5\ncell:G23:b::1:::l:2:f:5:ntvf:1\ncell:H23:b::3:::l:2:f:5\ncell:A24:b::3:::l:2:f:5\ncell:B24:b::3::3:l:2:f:5:cf:2\ncell:C24:l:2:f:5:cf:2:ntvf:4\ncell:D24:l:2:f:5:cf:2:colspan:2\ncell:E24:l:2:f:5:cf:2\ncell:F24:l:2:f:5\ncell:G24:b::1:::l:2:f:5:ntvf:1\ncell:H24:b::3:::l:2:f:5\ncell:A25:b::3:::l:2:f:5\ncell:B25:b::3::3:l:2:f:5:cf:2\ncell:C25:l:2:f:5:cf:2:ntvf:4\ncell:D25:l:2:f:5:cf:2:colspan:2\ncell:E25:l:2:f:5:cf:2\ncell:F25:l:2:f:5\ncell:G25:b::1:::l:2:f:5:ntvf:1\ncell:H25:b::3:::l:2:f:5\ncell:A26:b::3:::l:2:f:5\ncell:B26:b::3::3:l:2:f:5:cf:2\ncell:C26:l:2:f:5:cf:2:ntvf:4\ncell:D26:l:2:f:5:cf:2:colspan:2\ncell:E26:l:2:f:5:cf:2\ncell:F26:l:2:f:5\ncell:G26:b::1:::l:2:f:5:ntvf:1\ncell:H26:b::3:::l:2:f:5\ncell:A27:b::3:::l:2:f:5\ncell:B27:b::3::3:l:2:f:5:cf:2\ncell:C27:l:2:f:5:cf:2:ntvf:4\ncell:D27:l:2:f:5:cf:2:colspan:2\ncell:E27:l:2:f:5:cf:2\ncell:F27:l:2:f:5\ncell:G27:b::1:::l:2:f:5:ntvf:1\ncell:H27:b::3:::l:2:f:5\ncell:A28:b::3:::l:2:f:3\ncell:B28:b::3::3:l:2:f:5:cf:2\ncell:C28:b:::1::l:2:f:5:cf:2:ntvf:4\ncell:D28:b:::1::l:2:f:5:cf:2:colspan:2\ncell:E28:b:::1::l:2:f:5:cf:2\ncell:F28:b:::1::l:2:f:5\ncell:G28:b::1:1::l:2:f:5:ntvf:1\ncell:H28:b::3:::l:2:f:5\ncell:A29:b::3:::l:2:f:2\ncell:B29:b::3::3:l:2:f:2\ncell:C29:t:TOTAL:b:2::2::l:2:f:3:cf:2\ncell:D29:b:2::2::l:2:f:6:cf:2:colspan:2\ncell:E29:b:2:2:2::l:2:f:6:cf:2\ncell:F29:t:USD:b:1::1::l:2:f:3\ncell:G29:vtf:n:1:SUM(G16\\cG28):b:1:1:1::l:2:f:3:ntvf:1\ncell:H29:b::3:::l:2:f:3\ncell:A30:b::3:::l:2:f:5\ncell:B30:b::::3:l:2:f:2:cf:2\ncell:C30:b:1::::l:2:f:2:cf:2\ncell:D30:b:1::::l:2:f:5:cf:2\ncell:E30:b:1::::l:2:f:5:cf:2\ncell:F30:b:1::::l:2:f:2\ncell:G30:b:1::::l:2:f:2:ntvf:2\ncell:H30:b::3:::l:2:f:2\ncell:A31:b::3:::l:2:f:5\ncell:B31:b::::3:l:2:f:5\ncell:C31:l:2:f:5\ncell:D31:l:2:f:5\ncell:E31:l:2:f:5\ncell:F31:l:2:f:5\ncell:G31:l:2:f:5\ncell:H31:b::3:::l:2:f:5\ncell:A32:b::3:::l:2:f:5\ncell:B32:b::::3:l:2:f:5\ncell:C32:l:2:f:5\ncell:D32:l:2:f:5\ncell:E32:l:2:f:5\ncell:F32:l:2:f:5\ncell:G32:l:2:f:5\ncell:H32:b::3:::l:2:f:5\ncell:A33:b::3:::l:2:f:5\ncell:B33:b::::3:l:2:f:5\ncell:C33:l:2:f:5\ncell:D33:l:2:f:5\ncell:E33:l:2:f:5\ncell:F33:l:2:f:5\ncell:G33:l:2:f:5\ncell:H33:b::3:::l:2:f:5\ncell:A34:b::3:::l:2:f:5\ncell:B34:b::::3:l:2:f:5\ncell:C34:l:2:f:5\ncell:D34:l:2:f:5\ncell:E34:l:2:f:5\ncell:F34:l:2:f:5\ncell:G34:l:2:f:5\ncell:H34:b::3:::l:2:f:5\ncell:A35:b::3:::l:2:f:5\ncell:B35:b::::3:l:2:f:5:cf:2\ncell:C35:l:2:f:5:cf:2\ncell:D35:l:2:f:5:cf:2\ncell:E35:l:2:f:5:cf:2\ncell:F35:t:Thank you for your business:l:2:f:1:cf:2:colspan:2:rowspan:1\ncell:G35:t::l:2:f:1:cf:2\ncell:H35:b::3:::l:2:f:5\ncell:A36:b::3:::l:2:f:5\ncell:B36:b::::3:l:2:f:5\ncell:C36:l:2:f:5\ncell:D36:l:2:f:5\ncell:E36:l:2:f:5\ncell:H36:b::3:::l:2:f:5\ncell:A37:b::3:::l:2:f:5\ncell:B37:b:::1:1:l:2:f:5\ncell:C37:b:::1::l:2:f:5\ncell:D37:b:::1::l:2:f:5\ncell:E37:b:::1::l:2:f:5\ncell:F37:b:::1::l:2:f:5\ncell:G37:b:::1::l:2:f:5\ncell:H37:b::1:1::l:2:f:5\ncell:B38:b:1:::\ncell:C38:b:1:::\ncell:D38:b:1:::\ncell:E38:b:1:::\ncell:F38:b:1:::\ncell:G38:b:1:::\ncell:H38:b:1:::\ncol:A:w:26\ncol:B:w:22\ncol:C:w:102\ncol:D:w:180\ncol:E:w:102\ncol:F:w:60\ncol:G:w:120\ncol:H:w:37\nrow:2:h:18.75\nrow:3:h:13\nrow:5:h:68.25\nrow:6:h:15\nrow:7:h:15\nrow:8:h:15\nrow:9:h:15\nrow:14:h:12.75\nrow:15:h:12.75\nrow:16:h:12.75\nrow:28:h:16\nrow:29:h:17\nrow:30:h:13\nsheet:c:8:r:38:h:12:w:62\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin double rgb(0,0,0)\nborder:3:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\ncolor:1:rgb(238, 238, 238)\nfont:1:italic bold 10pt Arial\nfont:2:normal bold 10pt Arial\nfont:3:normal bold 12pt Arial\nfont:4:normal bold 14pt Arial\nfont:5:normal normal 10pt Arial\nfont:6:normal normal 12pt Arial\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:top;\nvalueformat:1:$#,##0.00\nvalueformat:2:_(* #,##0.00_);_(* \\b(#,##0.00\\b);_(* \"-\"??_);_(@_)\nvalueformat:3:d-mmm\nvalueformat:4:m/d/yy\n"},"name":"Sheet1","hidden":"0"}},"EditableCells":{"allow":true,"cells":{"Sheet1!C16":true,"Sheet1!C17":true,"Sheet1!C18":true,"Sheet1!C19":true,"Sheet1!C20":true,"Sheet1!C21":true,"Sheet1!C22":true,"Sheet1!C23":true,"Sheet1!C24":true,"Sheet1!C25":true,"Sheet1!C26":true,"Sheet1!C27":true,"Sheet1!C28":true,"Sheet1!D16":true,"Sheet1!D17":true,"Sheet1!D18":true,"Sheet1!D19":true,"Sheet1!D20":true,"Sheet1!D21":true,"Sheet1!D22":true,"Sheet1!D23":true,"Sheet1!D24":true,"Sheet1!D25":true,"Sheet1!D26":true,"Sheet1!D27":true,"Sheet1!D28":true,"Sheet1!G16":true,"Sheet1!G17":true,"Sheet1!G18":true,"Sheet1!G19":true,"Sheet1!G20":true,"Sheet1!G21":true,"Sheet1!G22":true,"Sheet1!G23":true,"Sheet1!G24":true,"Sheet1!G25":true,"Sheet1!G26":true,"Sheet1!G27":true,"Sheet1!G28":true,"Sheet1!D4":true,"Sheet1!D5":true,"Sheet1!D6":true,"Sheet1!D7":true,"Sheet1!D8":true,"Sheet1!F4":true,"Sheet1!F5":true,"Sheet1!F6":true,"Sheet1!F7":true,"Sheet1!F8":true,"Sheet1!D11":true,"Sheet1!D13":true,"Sheet1!C8":true,"Sheet1!E8":true,"":true},"constraints":{}}}
+</textarea>
+
+<script>
+
+
+  jQuery.postJSON = function(url, args, callback) {
+  //args._xsrf = getCookie("_xsrf");
+  //console.log(args)
+  var test = $.param(args)
+  //console.log(test)
+  
+  $.ajax({url: url, data: $.param(args), dataType: "text", type: "POST",
+  success: function(response) {
+  if (callback) callback(eval("(" + response + ")"));
+  }, error: function(response) {
+  console.log("ERROR:", response)
+  }});
+  };
+
+  SocialCalc.Callbacks.broadcast = function(type, data) {
+
+  }
+
+  SocialCalc.Constants.defaultImagePrefix = "lib/aspiring/images/sc-";
+  SocialCalc.Constants.defaultGridCSS = "";
+  SocialCalc.Constants.SCNoColNames = true;
+  SocialCalc.Constants.SCNoRowName = true;
+  SocialCalc.Constants.defaultRownameStyle = "";
+  SocialCalc.Constants.defaultSelectedRownameStyle = "";
+  SocialCalc.Popup.imagePrefix = "lib/aspiring/images/sc-";
+
+
+  var spreadsheet = new SocialCalc.SpreadsheetControl();
+
+
+
+var workbook = new SocialCalc.WorkBook(spreadsheet);
+workbook.InitializeWorkBook("sheet1");
+
+spreadsheet.InitializeSpreadsheetControl("tableeditor");
+spreadsheet.ExecuteCommand('redisplay', '');
+
+
+var workbookcontrol = new SocialCalc.WorkBookControl(workbook,"workbookControl","sheet1");
+workbookcontrol.InitializeWorkBookControl();
+
+SocialCalc.WorkBookControlLoad(document.getElementById("sheetdata").value)
+
+spreadsheet.DoOnResize();
+
+//var sheetstr = document.getElementById("sheetdata").value;
+
+// broadcast a snapshot after a delay
+
+
+					 
+
+</script>
+
+<div data-role="footer" class="ui-bar" data-theme="d"  data-position="fixed" data-id: "myfooter">
+
+</div> <!-- footer -->
+
+</div> <!-- page -->
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.klick.plugins.listviewalert"
+        version="0.1.0">
+    <name>Android Listview Alert</name>
+    <description>A cordova plugin that supports alerts with a title and a listview on Android</description>
+    <license>MIT </license>
+    <keywords>cordova, android, alert, listview</keywords>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ListViewAlert">
+                <param name="android-package" value="com.klick.plugins.listviewalert.ListViewAlert"/>
+            </feature>
+        </config-file>
+
+        <js-module src="www/ListViewAlert.js" name="ListViewAlert">
+            <clobbers target="ListViewAlert" />
+        </js-module>
+
+        <source-file src="src/android/ListViewAlert.java" target-dir="src/com/klick/plugins/listviewalert" />
+
+    </platform>
+</plugin>

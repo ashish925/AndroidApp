@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+	<!-- Change this if you want to allow scaling -->
+      <!-- <meta name="viewport" content="width=default-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=10.0, width=device-width, height=device-height, target-densitydpi=device-dpi" /> -->
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <title>HelloWorld</title>
+
+
+<link rel="stylesheet"  href="lib/jquery/_assets/css/jqm-docs.css"/> 
+<link rel="stylesheet"  href="lib/jquery/jquery.mobile.css" /> 
+
+
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" charset="utf-8" src="webintent.js"></script>
+  <script type="text/javascript" src="js/dropbox_ross.js"></script>
+  <script type="text/javascript" src="js/dropboxHandler.js"></script>
+
+        <div class="app">
+        </div>
+
+  <script type="text/javascript" charset="utf-8">
+        
+        //app.initialize();
+        
+        function BlockMove(event) {
+            event.preventDefault();
+        }
+
+	function onBodyLoad()
+	{
+		document.addEventListener("deviceready",onDeviceReady,false);
+	}
+        function onPause() {
+           console.log("app paused");
+       }
+        function onResume() {
+console.log("app resumed");
+       }
+
+        function onDestroy() {
+console.log("app destroyed");
+       }
+
+
+        /* When this function is called, PhoneGap has been initialized and is ready to roll */
+	function onDeviceReady()
+	{
+              //ChildBrowser.install();
+              //window.localStorage.clear();
+              //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onInitGotFs, onInitGotFail);
+           //  document.addEventListener("backbutton", onBackButtonPress, false);
+document.addEventListener("menubutton", onMenuButtonPress, false);
+document.addEventListener("searchbutton", onSearchButtonPress, false);
+document.addEventListener("pause", onPause, false);
+document.addEventListener("resume", onResume, false);
+document.addEventListener("destroy", onDestroy, false);
+
+
+	}
+
+
+   </script>
+
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+
+<!-- The following are the core app -->
+<script type="text/javascript" src="lib/aspiring/aspiringscc.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspirings.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringt.js"></script>
+<!-- <script type="text/javascript" src="lib/aspiring/aspiringte.js"></script> -->
+<script type="text/javascript" src="lib/aspiring/socialcalctableeditor.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringfn.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringf.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringscp.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringssc.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringwb.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringwbc.js"></script>
+<script type="text/javascript" src="lib/aspiring/json2.js"></script>
+
+
+<!-- The following are jquery -->
+<script type="text/javascript" src="lib/jquery/jquery.mobile.js"></script>
+
+<!-- The following are graphing -->
+
+<script type="text/javascript"
+    src="lib/graphing/jquery.flot.min.js">
+</script>
+<script type="text/javascript"    src="lib/graphing/jquery.flot.pie.min.js"></script>
+
+
+<!-- The following is called after highcharts is loaded -->
+<!-- <script type="text/javascript" src="aspiringag.js"></script> -->
+<script type="text/javascript" src="AppGeneral.js"></script>
+<script>
+  function logo() {
+    var logoSwitch = document.getElementById('logoSwitch');
+    if (logoSwitch.checked)
+    {
+      var logoUrl = prompt("Enter Image URL");
+      if (!logoUrl)
+      {
+        logoSwitch.checked = !logoSwitch.checked;
+      }
+      else
+      {
+        if (logoUrl === 'local' || logoUrl === 'Local')
+        {
+          if (localStorage.getItem('dbimage'))
+          {
+            logoUrl = localStorage.getItem('dbimage');
+            logoAddOk(logoUrl);
+          }
+          else
+          {
+            alert("No image stored");
+          }
+        }
+        else if (logoUrl === 'camera' || logoUrl === 'Camera' || logoUrl === 'Camera ' || logoUrl === 'camera ')
+        {
+          navigator.camera.getPicture(onSuccess, onFail, 
+            { 
+              quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType : Camera.PictureSourceType.CAMERA
+            }
+          );
+
+          function onSuccess(imageData) {
+              // var image = document.getElementById('myImage');
+              // image.src = "data:image/jpeg;base64," + imageData;
+              // alert("success!");
+              localStorage.setItem('logo', 'data:image/jpeg;base64,'+imageData);
+              logoAddOk('data:image/jpeg;base64,'+imageData);
+          }
+
+          function onFail(message) {
+              alert('Failed because: ' + message);
+          }
+        }
+        else if (logoUrl === 'gallery' || logoUrl === 'Gallery' || logoUrl === 'Gallery ' || logoUrl === 'gallery ')
+        {
+          navigator.camera.getPicture(onSuccess, onFail, 
+            { 
+              quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType : Camera.PictureSourceType.PHOTOLIBRARY
+            }
+          );
+
+          function onSuccess(imageData) {
+              // var image = document.getElementById('myImage');
+              // image.src = "data:image/jpeg;base64," + imageData;
+              // alert("success!");
+              localStorage.setItem('logo', 'data:image/jpeg;base64,'+imageData);
+              logoAddOk('data:image/jpeg;base64,'+imageData);
+          }
+
+          function onFail(message) {
+              alert('Failed because: ' + message);
+          }
+        }
+      }
+    }
+    else
+      logoRemoveOk();
+  }
+  function logoAddOk(link) {
+    console.log(link)
+
+    var i=1;  
+    var cmd = 'set F6 text t <img src="'+link+'" style="max-width:100%;"></img>'+"\n"
+    console.log(cmd);
+    var control = SocialCalc.GetCurrentWorkBookControl();
+    var currsheet = control.currentSheetButton.id 
+    
+    if (currsheet == "sheet1" || currsheet == "sheet2" || currsheet == "sheet3" || currsheet == "sheet4")   
+    {  
+      cmd = {cmdtype:"scmd", id:currsheet, cmdstr: cmd, saveundo: false};
+      control.ExecuteWorkBookControlCommand(cmd, false);  
+    }  
+  }
+  function logoRemoveOk() {
+    console.log("remove logo")
+    var cmd = 'erase F6 formulas'
+
+    var control = SocialCalc.GetCurrentWorkBookControl();
+    var currsheet = control.currentSheetButton.id 
+    
+    if (currsheet == "sheet1" || currsheet == "sheet2" || currsheet == "sheet3" || currsheet == "sheet4")   
+    {     
+      cmd = {cmdtype:"scmd", id:currsheet, cmdstr: cmd, saveundo: false};
+      control.ExecuteWorkBookControlCommand(cmd, false);  
+    }      
+  }
+</script>
+
+  </head>
+  <body onload="onBodyLoad()" ontouchmove="BlockMove(event);" onresize="SocialCalc.ProcessOrientationChange(event);">
+      
+           
+
+<div data-role="page" class="type-index" id="indexPage" data-fullscreen="true"  data-theme="d">
+  
+<div data-role="header" data-theme="a" data-position="fixed" class="ui-bar">
+  
+<div class="ui-grid-b">
+  <div class="ui-block-a">
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">    
+    <div data-role="button" data-inline="true" onclick="showEmailComposer();"><h1>Email</h1></div>
+    <!--
+    <div data-role="button" data-inline="true" onclick="showPrintDialog();"><h1>Print</h1></div>
+    -->
+    <a href="file.html" data-role="button" data-inline="true"><h1>File</h1></a>
+    </div>
+  </div>
+  <div class="ui-block-b">
+      <span id="indexPage-fname" style="vertical-align:middle;">Editing: default</span>
+  </div>
+
+  <div class="ui-block-c">
+    <!--
+       <div data-role="button" data-inline="true" onclick="logoAddOk('http://www.thebookage.com/1.jpg');"><h1>Logo</h1></div>
+       <div data-role="button" data-inline="true" onclick="logoRemoveOk();"><h1>Remove</h1></div>-->
+       <form>
+       <label for="logoSwitch">Logo</label>
+        <input type="checkbox" data-role="flipswitch" name="logoSwitch" id="logoSwitch" onchange="logo();">
+        </form>
+       <img style="position: absolute; right: 10px; top: 0.8em" src="lib/aspiring/images/sc-logo.gif"></img>
+<!--    
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">        
+     <div data-role="button" onclick="showBuyLink();">Buy</div>
+     <div data-role="button" onclick="showHelp();">Help</div>
+     </div>
+     -->
+  </div>
+
+</div> <!-- ui-grid-b -->
+
+</div> <!-- header -->
+
+ 
+  <div id="workbookControl" style="background-color:#80A9F3;">
+    </div>
+
+     <div id="tableeditor">editor goes here</div> 
+
+
+   <div id="msg" onclick="this.innerHTML='&nbsp;';"></div> 
+
+
+    
+<textarea name="savestr" id="sheetdata" style="display:none;">
+{"numsheets":5,"currentid":"sheet1","currentname":"typei","sheetArr":{"sheet1":{"sheetstr":{"savestr":"version:1.5\ncell:B1:b:::2::l:1:f:10\ncell:C1:b:::2::l:1:f:10\ncell:D1:b:::2::l:1:f:10\ncell:E1:b:::2::l:1:f:10\ncell:F1:b:::2::l:1:f:10\ncell:G1:b:::2::l:1:f:10\ncell:A2:b::2:::l:1:f:10\ncell:B2:t:INVOICE:b:1:1:1:1:f:13:cf:1:colspan:6\ncell:C2:t::b:2::2::l:1:f:10\ncell:D2:t::b:2::2::l:1:f:10\ncell:E2:t::b:2::2::l:1:f:10\ncell:F2:t::b:2::2::l:1:f:10\ncell:G2:t::b:2::2::l:1:f:10\ncell:A3:b::2:::l:3:f:10\ncell:B3:b:2:::2:l:3:f:10\ncell:C3:b:2::::l:1:f:10\ncell:D3:b:2::::l:1:f:10\ncell:E3:b:2::::l:1:f:10\ncell:F3:b:2::::l:1:f:10\ncell:G3:b:2:2:::l:3:f:10\ncell:A4:b::2:::l:3:f:10\ncell:B4:b::::2:l:3:f:6\ncell:C4:t:BILL TO\\c:f:9:colspan:2\ncell:E4:f:5:cf:2\ncell:G4:b::2:::l:3:f:10\ncell:A5:b::2:::l:3:f:10\ncell:B5:b::::2:l:3:f:7\ncell:C5:t:[Name]:f:9:cf:2:colspan:2\ncell:E5:f:1:cf:2:colspan:2\ncell:F5:t::l:2:f:10\ncell:G5:t::b::1:::l:2:f:10\ncell:A6:b::2:::l:3:f:10\ncell:B6:b::::2:l:3:f:7\ncell:C6:t:[Street Address]:f:9:cf:2:colspan:2\ncell:E6:f:1:cf:2\ncell:F6:l:2:f:10:tvf:4:rowspan:5\ncell:G6:b::1:::l:2:f:10\ncell:A7:b::2:::l:3:f:10\ncell:B7:b::::2:l:3:f:7\ncell:C7:t:[City, State, Zip]:f:9:cf:2:colspan:2\ncell:E7:f:1:cf:2\ncell:G7:b::2:::l:3:f:10\ncell:A8:b::2:::l:3:f:10\ncell:B8:b::::2:l:3:f:7\ncell:C8:t:Phone\\c:f:9:cf:2:colspan:2\ncell:D8:f:8:cf:2:colspan:3\ncell:E8:f:1:cf:2\ncell:G8:b::2:::l:3:f:10\ncell:A9:b::2:::l:3:f:10\ncell:B9:b::::2:l:3:f:7\ncell:C9:t:Email\\c:f:9:cf:2:colspan:2\ncell:E9:f:1:cf:2\ncell:G9:b::2:::l:3:f:10\ncell:A10:b::2:::l:3:f:10\ncell:B10:b::::2:l:3:f:7\ncell:C10:colspan:2\ncell:G10:b::2:::l:3:f:10\ncell:A11:b::2:::l:3:f:10\ncell:B11:b::::2:l:3:f:7\ncell:C11:t:FROM\\c:f:9:colspan:2\ncell:E11:f:8:colspan:2\ncell:G11:b::2:::l:3:f:10\ncell:A12:b::2:::l:3:f:10\ncell:B12:b::::2:l:3:f:7\ncell:C12:t:[Name]:f:9:colspan:4\ncell:E12:colspan:2\ncell:G12:b::2:::l:3:f:10\ncell:A13:b::2:::l:3:f:10\ncell:B13:b::::2:l:3:f:7\ncell:C13:t:[Street Address]:f:9:colspan:4\ncell:E13:colspan:2\ncell:G13:b::2:::l:3:f:10\ncell:A14:b::2:::l:3:f:10\ncell:B14:b::::2:l:3:f:7\ncell:C14:t:[City, State, Zip]:f:9:colspan:4\ncell:E14:colspan:2\ncell:G14:b::2:::l:3:f:10\ncell:A15:b::2:::l:3:f:10\ncell:B15:b::::2:l:3:f:7\ncell:C15:t:Phone\\c:f:9:colspan:4\ncell:D15:f:8:cf:2:colspan:3\ncell:E15:colspan:2\ncell:G15:b::2:::l:3:f:10\ncell:A16:b::2:::l:3:f:10\ncell:B16:b::::2:l:3:f:7\ncell:C16:t:Email\\c:f:9:colspan:4\ncell:E16:colspan:2\ncell:G16:b::2:::l:3:f:10\ncell:A17:b::2:::l:3:f:10\ncell:B17:b::::2:l:3:f:6\ncell:G17:b::2:::l:3:f:10\ncell:A18:b::2:::l:3:f:10\ncell:B18:b::::2:l:3:f:10\ncell:C18:t:INVOICE #\\c:f:9:cf:2:colspan:4\ncell:D18:v:1:l:4:f:9:cf:2:colspan:3\ncell:G18:b::2:::l:3:f:10\ncell:A19:b::2:::l:3:f:10\ncell:B19:b::::2:l:3:f:10\ncell:G19:b::2:::l:3:f:10\ncell:A20:b::2:::l:3:f:10\ncell:B20:b::::2:l:3:f:10\ncell:C20:t:DATE\\c:f:9:cf:2\ncell:D20:vtf:nd:41691:TODAY():f:9:cf:2:ntvf:3:colspan:2\ncell:G20:b::2:::l:3:f:10\ncell:A21:b::2:::l:3:f:10\ncell:B21:b::::2:l:3:f:6:cf:2\ncell:C21:b:::2::l:1:f:10\ncell:D21:b:::2::l:3:f:6:cf:2\ncell:E21:b:::2::l:1:f:10\ncell:F21:b:::2::l:1:f:10\ncell:G21:b::2:::l:3:f:10\ncell:A22:b::2:::l:3:f:10\ncell:B22:b::2::2:l:3:f:10\ncell:C22:t:Description:b:1::1:1:f:9:cf:1:colspan:3\ncell:D22:t:Description:b:1::1::l:3:f:6:cf:2:colspan:2:rowspan:1\ncell:E22:t::b:2:2:2::l:1:f:10\ncell:F22:t:Amount:b:1:1:1:1:f:9:cf:1\ncell:G22:b::2::2:l:3:f:10\ncell:A23:b::2:::l:3:f:10\ncell:B23:b::2::2:l:3:f:10\ncell:C23:b:1:1::1:f:2:cf:2:colspan:3\ncell:D23:b:1:1:::l:3:f:10:cf:2:colspan:2:rowspan:1\ncell:E23:t::b:2:2:2::l:1:f:10\ncell:F23:b:1:1:::f:2:ntvf:1\ncell:G23:b::2::2:l:3:f:10\ncell:A24:b::2:::l:3:f:10\ncell:B24:b::2::2:l:3:f:10:cf:2\ncell:C24:b::1::1:f:2:cf:2:colspan:3\ncell:D24:b::1:::l:1:f:10:colspan:2\ncell:E24:l:1:f:10\ncell:F24:b::1:::f:2:ntvf:1\ncell:G24:b::2::2:l:3:f:10\ncell:A25:b::2:::l:3:f:10\ncell:B25:b::2::2:l:3:f:10:cf:2:ntvf:2\ncell:C25:b::1::1:f:2:cf:2:colspan:3\ncell:D25:b::1:::colspan:2\ncell:F25:b::1:::f:2:ntvf:1\ncell:G25:b::2::2:l:3:f:10\ncell:A26:b::2:::l:3:f:10\ncell:B26:b::2::2:l:3:f:10:cf:2:ntvf:2\ncell:C26:b::1::1:f:2:cf:2:colspan:3\ncell:D26:b::1:::colspan:2\ncell:F26:b::1:::f:2:ntvf:1\ncell:G26:b::2::2:l:3:f:10\ncell:A27:b::2:::l:3:f:10\ncell:B27:b::2::2:l:3:f:10:cf:2:ntvf:2\ncell:C27:b::1::1:f:2:cf:2:colspan:3\ncell:D27:b::1:::colspan:2\ncell:F27:b::1:::f:2:ntvf:1\ncell:G27:b::2::2:l:3:f:10\ncell:A28:b::2:::l:3:f:10\ncell:B28:b::2::2:l:3:f:10:cf:2:ntvf:2\ncell:C28:b::1::1:f:2:cf:2:colspan:3\ncell:D28:b::1:::colspan:2\ncell:F28:b::1:::f:2:ntvf:1\ncell:G28:b::2::2:l:3:f:10\ncell:A29:b::2:::l:3:f:10\ncell:B29:b::2::2:l:3:f:10:cf:2:ntvf:2\ncell:C29:b::1::1:f:2:cf:2:colspan:3\ncell:D29:b::1:::colspan:2\ncell:F29:b::1:::f:2:ntvf:1\ncell:G29:b::2::2:l:3:f:10\ncell:A30:b::2:::l:3:f:10\ncell:B30:b::2::2:l:3:f:10:cf:2\ncell:C30:b::1::1:f:2:cf:2:colspan:3\ncell:D30:b::1:::colspan:2\ncell:F30:b::1:::f:2:ntvf:1\ncell:G30:b::2::2:l:3:f:10\ncell:A31:b::2:::l:3:f:10\ncell:B31:b::2::2:l:3:f:10:cf:2\ncell:C31:b::1::1:f:2:cf:2:colspan:3\ncell:D31:b::1:::colspan:2\ncell:F31:b::1:::f:2:ntvf:1\ncell:G31:b::2::2:l:3:f:10\ncell:A32:b::2:::l:3:f:10\ncell:B32:b::2::2:l:3:f:10:cf:2\ncell:C32:b::1::1:f:2:cf:2:colspan:3\ncell:D32:b::1:::colspan:2\ncell:F32:b::1:::f:2:ntvf:1\ncell:G32:b::2::2:l:3:f:10\ncell:A33:b::2:::l:3:f:10\ncell:B33:b::2::2:l:3:f:10:cf:2\ncell:C33:b::1::1:f:2:cf:2:colspan:3\ncell:D33:b::1:::colspan:2\ncell:F33:b::1:::f:2:ntvf:1\ncell:G33:b::2::2:l:3:f:10\ncell:A34:b::2:::l:3:f:10\ncell:B34:b::2::2:l:3:f:10:cf:2\ncell:C34:b::1::1:f:2:cf:2:colspan:3\ncell:D34:b::1:::colspan:2\ncell:F34:b::1:::f:2:ntvf:1\ncell:G34:b::2::2:l:3:f:10\ncell:A35:b::2:::l:3:f:7\ncell:B35:b::2::2:l:3:f:10:cf:2\ncell:C35:b::1:1:1:f:2:cf:2:colspan:3\ncell:D35:b::1:1::l:3:f:10:cf:2:colspan:2\ncell:E35:b:::2::l:3:f:10:cf:2\ncell:F35:b::1:1::f:2:ntvf:1\ncell:G35:b::2::2:l:3:f:10\ncell:A36:b::2:::l:3:f:6\ncell:B36:b::2::2:l:3:f:6\ncell:C36:t:TOTAL:b:1:1:1:1:f:11:cf:2:colspan:3\ncell:D36:b:2::2::l:3:f:12:cf:2\ncell:E36:b:2:2:2::l:3:f:12:cf:2\ncell:F36:vtf:n:0:SUM(F23\\cF35):b:1:1:1::f:11:ntvf:1\ncell:G36:b::2::2:l:3:f:7\ncell:A37:b::2:::l:3:f:10\ncell:B37:b::::2:l:3:f:6:cf:2\ncell:C37:b:2::::l:1:f:10\ncell:D37:b:2::::l:1:f:10\ncell:E37:b:2::::l:1:f:10\ncell:F37:b:2::::l:1:f:10\ncell:G37:b::2:::l:3:f:6\ncell:A38:b::2:::l:3:f:10\ncell:B38:b::::2:l:3:f:10\ncell:G38:b::2:::l:3:f:10\ncell:A39:b::2:::l:3:f:10\ncell:B39:b::::2:l:3:f:10:cf:2\ncell:C39:t:Thank you for your business:f:4:cf:1:colspan:4\ncell:D39:t:Thank you for your business:colspan:3\ncell:E39:t:Thank you for your business:f:3:colspan:2\ncell:F39:t::l:2:f:10\ncell:G39:b::2:::l:3:f:10\ncell:A40:b::2:::l:3:f:10\ncell:B40:b::::2:l:3:f:10\ncell:G40:b::2:::l:3:f:10\ncell:A41:b::2:::l:3:f:10\ncell:B41:b:::2:2:l:3:f:10\ncell:C41:b:::2::l:3:f:10\ncell:D41:b:::2::l:3:f:10\ncell:E41:b:::2::l:3:f:10\ncell:F41:b:::2::l:3:f:10\ncell:G41:b::2:2::l:3:f:10\ncell:B42:b:1:::\ncell:C42:b:1:::\ncell:D42:b:1:::\ncell:E42:b:1:::\ncell:F42:b:1:::\ncell:G42:b:1:::\ncol:A:w:10\ncol:B:w:10\ncol:C:w:62\ncol:D:w:57\ncol:E:w:15\ncol:F:w:96\ncol:G:w:10\nrow:1:h:14.25\nrow:2:h:18.75\nrow:3:h:14.25\nrow:4:h:14.25\nrow:5:h:15.75\nrow:6:h:15.75\nrow:7:h:15.75\nrow:8:h:15.75\nrow:9:h:14.25\nrow:10:h:14.25\nrow:11:h:14.25\nrow:12:h:14.25\nrow:13:h:14.25\nrow:14:h:14.25\nrow:15:h:14.25\nrow:16:h:14.25\nrow:17:h:14.25\nrow:18:h:14.25\nrow:19:h:14.25\nrow:20:h:14.25\nrow:21:h:14.25\nrow:22:h:14.25\nrow:23:h:14.25\nrow:24:h:14.25\nrow:25:h:14.25\nrow:26:h:14.25\nrow:27:h:14.25\nrow:28:h:14.25\nrow:29:h:14.25\nrow:30:h:14.25\nrow:31:h:14.25\nrow:32:h:14.25\nrow:33:h:14.25\nrow:34:h:14.25\nrow:35:h:15.75\nrow:36:h:15.75\nrow:37:h:14.25\nrow:38:h:14.25\nrow:39:h:14.25\nrow:40:h:14.25\nrow:41:h:14.25\nsheet:c:7:r:42:h:12.75\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\nfont:1:* * Trebuchet MS\nfont:2:* 9pt Trebuchet MS\nfont:3:italic bold * Trebuchet MS\nfont:4:italic bold 10pt Trebuchet MS\nfont:5:normal bold * Trebuchet MS\nfont:6:normal bold 10pt Arial\nfont:7:normal bold 12pt Arial\nfont:8:normal normal * *\nfont:9:normal normal * Trebuchet MS\nfont:10:normal normal 10pt Arial\nfont:11:normal normal 11pt Trebuchet MS\nfont:12:normal normal 12pt Arial\nfont:13:normal normal 16pt Trebuchet MS\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nlayout:3:padding:* * * *;vertical-align:top;\nlayout:4:padding:* * * 4px;vertical-align:*;\nvalueformat:1:#,##0.00\nvalueformat:2:d-mmm\nvalueformat:3:m/d/yy\nvalueformat:4:text-html\n"},"name":"typei","hidden":"0"},"sheet2":{"sheetstr":{"savestr":"version:1.5\ncell:B2:t:INVOICE:l:1:f:9:cf:1:colspan:6\ncell:C2:t::l:2:f:13\ncell:D2:t::l:2:f:13\ncell:E2:l:1:f:10:c:2:cf:3\ncell:F2:t:INVOICE:l:1:f:8:c:2:cf:2:colspan:2\ncell:G2:t::l:2:f:13\ncell:B3:f:6:cf:2:colspan:4\ncell:C3:t::l:2:f:13\ncell:D3:t::l:2:f:13\ncell:F3:l:1:f:7:cf:2\ncell:G3:l:1:f:14:cf:2:ntvf:3\ncell:B4:f:2:colspan:2\ncell:F4:t:DATE\\c:l:1:f:14:cf:2\ncell:G4:vtf:nd:41691:TODAY():l:1:f:14:cf:2:ntvf:3\ncell:B5:t:INVOICE #\\c:f:3:colspan:4\ncell:C5:cf:2:colspan:5\ncell:F5:l:1:f:7:cf:2:colspan:2\ncell:G5:l:1:f:14:cf:2\ncell:B6:f:2:colspan:2\ncell:F6:l:1:f:7:cf:2:tvf:4:colspan:2:rowspan:5\ncell:G6:l:1:f:14:cf:2\ncell:B7:t:FROM\\c:f:12\ncell:F7:l:1:f:7:cf:2:colspan:2\ncell:G7:l:1:f:14:cf:2\ncell:B8:t:[Company Name]:f:3:colspan:4\ncell:F8:l:1:f:7:cf:2:colspan:2\ncell:G8:l:1:f:14:cf:2\ncell:B9:t:[Street Address]:f:1:cf:2:colspan:4\ncell:F9:l:1:f:7\ncell:G9:l:1:f:14:cf:1\ncell:B10:t:[City, State,  Zip]:f:1:cf:2:colspan:4\ncell:F10:colspan:2\ncell:G10:l:1:f:13\ncell:B11:t:Phone\\c :f:1:cf:2:colspan:6\ncell:B12:t:Email\\c:f:1:cf:2:colspan:6\ncell:B13:colspan:2\ncell:B14:t:BILL TO\\c:f:11:cf:2\ncell:B15:t:[Name]:f:1:cf:2:colspan:6\ncell:B16:t:[Company Name]:f:1:cf:2:colspan:6\ncell:F16:t:  \ncell:B17:t:[Street Address]:f:1:cf:2:colspan:6\ncell:B18:t:[City, State,  Zip]:f:1:cf:2:colspan:6\ncell:B19:t:Phone\\c :f:1:cf:2:colspan:6\ncell:B20:t:Email\\c:f:1:cf:2:colspan:6\ncell:A22:b::1::\ncell:B22:t:DESCRIPTION:b:1:1:1:1:l:1:f:14:c:1:bg:3:cf:1:colspan:5:rowspan:1\ncell:C22:t::l:2:f:13\ncell:D22:t::l:2:f:13\ncell:E22:t::l:2:f:13\ncell:F22:t::l:2:f:13\ncell:G22:t:AMOUNT:b:1:1:1::l:1:f:14:c:1:bg:3:cf:1\ncell:A23:b::1::\ncell:B23:b:1:1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C23:t::l:2:f:4\ncell:D23:t::l:2:f:4\ncell:E23:t::l:2:f:4\ncell:F23:t::b::2:::l:1:f:4\ncell:G23:b::1::1:f:4:ntvf:1\ncell:A24:b::1::\ncell:B24:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C24:t::l:2:f:4\ncell:D24:t::l:2:f:4\ncell:E24:t::l:2:f:4\ncell:F24:t::b::2:::l:1:f:4\ncell:G24:b::1::1:f:4:ntvf:1\ncell:A25:b::1::\ncell:B25:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C25:t::l:2:f:4\ncell:D25:t::l:2:f:4\ncell:E25:t::l:2:f:4\ncell:F25:t::b::2:::l:1:f:4\ncell:G25:b::1::1:f:4:ntvf:1\ncell:A26:b::1::\ncell:B26:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C26:t::l:2:f:4\ncell:D26:t::l:2:f:4\ncell:E26:t::l:2:f:4\ncell:F26:t::b::2:::l:1:f:4\ncell:G26:b::1::1:f:4:ntvf:1\ncell:A27:b::1::\ncell:B27:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C27:t::l:2:f:4\ncell:D27:t::l:2:f:4\ncell:E27:t::l:2:f:4\ncell:F27:t::b::2:::l:1:f:4\ncell:G27:b::1::1:f:4:ntvf:1\ncell:A28:b::1::\ncell:B28:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C28:t::l:2:f:4\ncell:D28:t::l:2:f:4\ncell:E28:t::l:2:f:4\ncell:F28:t::b::2:::l:1:f:4\ncell:G28:b::1::1:f:4:ntvf:1\ncell:A29:b::1::\ncell:B29:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C29:t::l:2:f:4\ncell:D29:t::l:2:f:4\ncell:E29:t::l:2:f:4\ncell:F29:t::b::2:::l:1:f:4\ncell:G29:b::1::1:f:4:ntvf:1\ncell:A30:b::1::\ncell:B30:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C30:t::l:2:f:4\ncell:D30:t::l:2:f:4\ncell:E30:t::l:2:f:4\ncell:F30:t::b::2:::l:1:f:4\ncell:G30:b::1::1:f:4:ntvf:1\ncell:A31:b::1::\ncell:B31:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C31:t::l:2:f:4\ncell:D31:t::l:2:f:4\ncell:E31:t::l:2:f:4\ncell:F31:t::b::2:::l:1:f:4\ncell:G31:b::1::1:f:4:ntvf:1\ncell:A32:b::1::\ncell:B32:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C32:t::l:2:f:4\ncell:D32:t::l:2:f:4\ncell:E32:t::l:2:f:4\ncell:F32:t::b::2:::l:1:f:4\ncell:G32:b::1::1:f:4:ntvf:1\ncell:A33:b::1::\ncell:B33:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C33:t::l:2:f:4\ncell:D33:t::l:2:f:4\ncell:E33:t::l:2:f:4\ncell:F33:t::b::2:::l:1:f:4\ncell:G33:b::1::1:f:4:ntvf:1\ncell:A34:b::1::\ncell:B34:b::1::1:f:4:cf:2:colspan:5:rowspan:1\ncell:C34:l:2:f:4\ncell:D34:l:2:f:4\ncell:E34:l:2:f:4\ncell:F34:b::2:::l:1:f:4\ncell:G34:b::1::1:f:4:ntvf:1\ncell:A35:b::1::\ncell:B35:b::1:1:1:f:4:cf:2:colspan:5:rowspan:1\ncell:C35:t::b:::2::l:1:f:4\ncell:D35:t::b:::2::l:1:f:4\ncell:E35:t::b:::2::l:1:f:4\ncell:F35:t::b::2:2::l:1:f:4\ncell:G35:b::1:1:1:f:4:ntvf:1\ncell:B36:b:2::::l:1:f:13\ncell:C36:b:2::::l:1:f:13\ncell:D36:b:2::::l:1:f:13\ncell:E36:b:2::::l:1:f:14\ncell:F36:t:Subtotal:b:2::::l:1:f:11\ncell:G36:vtf:n:0:SUM(G23\\cG35):b:1::::f:11:ntvf:1\ncell:B37:t:NOTES:b:::1::l:1:f:14:cf:2:colspan:3:rowspan:1\ncell:C37:t::b:::2::l:1:f:13\ncell:D37:t::b:::2::l:1:f:13\ncell:F37:t:Tax Rate:l:1:f:11\ncell:G37:v:0:f:1:ntvf:2\ncell:B38:b:1::::f:1:cf:2:colspan:3\ncell:C38:t::b:2::::l:1:f:13\ncell:D38:t::b:2::::l:1:f:13\ncell:F38:t:Tax:l:1:f:11\ncell:G38:vtf:n:0:G37*G36:f:1:ntvf:1\ncell:B39:f:1:cf:2:colspan:3\ncell:C39:t::l:2:f:13\ncell:D39:t::l:2:f:13\ncell:F39:t:Other:b:::1::l:1:f:11\ncell:G39:v:0:b:::1::f:1:ntvf:1\ncell:B40:b:::1::f:1:cf:2:colspan:3:rowspan:1\ncell:C40:t::l:2:f:13\ncell:D40:t::l:2:f:13\ncell:F40:t:TOTAL:b:1::::l:1:f:14\ncell:G40:vtf:n:0:(G36+G38)+G39:b:1::::f:11:ntvf:1\ncell:B43:t:Thank you for your business:l:1:f:5:cf:1:colspan:6:rowspan:1\ncell:C43:t::l:2:f:13\ncell:D43:t::l:2:f:13\ncell:E43:t::l:2:f:13\ncell:F43:t::l:2:f:13\ncell:G43:t::l:2:f:13\ncol:A:w:10\ncol:B:w:90\ncol:C:w:19\ncol:D:w:10\ncol:E:w:16\ncol:F:w:45\ncol:G:w:64\nrow:1:h:34.5\nrow:2:h:34.5\nrow:3:h:14.25\nrow:4:h:14.25\nrow:5:h:14.25\nrow:6:h:14.25\nrow:7:h:14.25\nrow:8:h:14.25\nrow:9:h:14.25\nrow:10:h:14.25\nrow:11:h:14.25\nrow:12:h:14.25\nrow:14:h:14.25\nrow:15:h:14.25\nrow:16:h:14.25\nrow:17:h:14.25\nrow:18:h:14.25\nrow:19:h:14.25\nrow:22:h:14.25\nrow:23:h:14.25\nrow:24:h:14.25\nrow:25:h:14.25\nrow:26:h:14.25\nrow:27:h:14.25\nrow:28:h:14.25\nrow:29:h:14.25\nrow:30:h:14.25\nrow:31:h:14.25\nrow:32:h:14.25\nrow:33:h:14.25\nrow:34:h:14.25\nrow:35:h:14.25\nrow:36:h:14.25\nrow:37:h:14.25\nrow:38:h:14.25\nrow:39:h:14.25\nrow:40:h:14.25\nrow:43:h:15.75\nsheet:c:7:r:43:h:12.75\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\ncellformat:3:right\ncolor:1:rgb(0, 0, 0)\ncolor:2:rgb(0,0,0)\ncolor:3:rgb(221, 221, 221)\nfont:1:* * Trebuchet MS\nfont:2:* 10pt *\nfont:3:* 10pt Trebuchet MS\nfont:4:* 9pt Trebuchet MS\nfont:5:italic bold 10pt Trebuchet MS\nfont:6:italic normal * Trebuchet MS\nfont:7:normal bold 10pt Trebuchet MS\nfont:8:normal bold 14pt Trebuchet MS\nfont:9:normal bold 16pt Trebuchet MS\nfont:10:normal bold 28pt Trebuchet MS\nfont:11:normal normal * Trebuchet MS\nfont:12:normal normal 10pt *\nfont:13:normal normal 10pt Arial\nfont:14:normal normal 10pt Trebuchet MS\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nvalueformat:1:#,##0.00\nvalueformat:2:#,##0.00%\nvalueformat:3:m/d/yy\nvalueformat:4:text-html\n"},"name":"typeiii","hidden":"0"},"sheet3":{"sheetstr":{"savestr":"version:1.5\ncell:B2:t:INVOICE:l:1:f:12:cf:1:colspan:6\ncell:C2:t::l:2:f:10\ncell:D2:t::l:2:f:10\ncell:E2:l:1:f:8:c:2:cf:3\ncell:F2:t:INVOICE:l:1:f:7:c:2:cf:2:colspan:2\ncell:G2:t::l:2:f:10\ncell:B3:f:5:cf:2:colspan:4\ncell:C3:t::l:2:f:10\ncell:D3:t::l:2:f:10\ncell:F3:l:1:f:6:cf:2\ncell:G3:l:1:f:11:cf:2:ntvf:3\ncell:B4:f:2:colspan:2\ncell:F4:t:DATE\\c:l:1:f:11:cf:2\ncell:G4:vtf:nd:41654:TODAY():l:1:f:11:cf:2:ntvf:3\ncell:B5:t:INVOICE #\\c:f:9:colspan:6\ncell:C5:cf:2:colspan:5\ncell:F5:l:1:f:6:cf:2:colspan:2\ncell:G5:l:1:f:11:cf:2\ncell:B6:f:2:colspan:2\ncell:F6:l:1:f:6:cf:2:colspan:2\ncell:G6:l:1:f:11:cf:2\ncell:B7:t:FROM\\c:f:11\ncell:F7:l:1:f:6:cf:2:colspan:2\ncell:G7:l:1:f:11:cf:2\ncell:B8:t:[Company Name]:f:9:colspan:6\ncell:F8:l:1:f:6:cf:2:colspan:2\ncell:G8:l:1:f:11:cf:2\ncell:B9:t:[Street Address]:f:9:cf:2:colspan:6\ncell:F9:l:1:f:6\ncell:G9:l:1:f:11:cf:1\ncell:B10:t:[City, State,  Zip]:f:9:cf:2:colspan:6\ncell:G10:l:1:f:10\ncell:B11:t:Phone\\c :f:9:cf:2:colspan:6\ncell:B12:t:Email\\c:f:9:cf:2:colspan:6\ncell:B13:colspan:2\ncell:B14:t:BILL TO\\c:f:9:cf:2\ncell:B15:t:[Name]:f:9:cf:2:colspan:6\ncell:B16:t:[Company Name]:f:9:cf:2:colspan:6\ncell:F16:t:  \ncell:B17:t:[Street Address]:f:9:cf:2:colspan:6\ncell:B18:t:[City, State,  Zip]:f:9:cf:2:colspan:6\ncell:B19:t:Phone\\c :f:9:cf:2:colspan:6\ncell:B20:t:Email\\c:f:9:cf:2:colspan:6\ncell:A22:b::1::\ncell:B22:t:DESCRIPTION:b:1:1:1:1:l:1:f:11:c:1:bg:3:cf:1:colspan:5:rowspan:1\ncell:C22:t::l:2:f:10\ncell:D22:t::l:2:f:10\ncell:E22:t::l:2:f:10\ncell:F22:t::l:2:f:10\ncell:G22:t:AMOUNT:b:1:1:1::l:1:f:11:c:1:bg:3:cf:1\ncell:A23:b::1::\ncell:B23:vtf:t: :IF(AND(ISBLANK(typeii!B6),ISBLANK(sheet7!B6)), \" \", IF(ISBLANK(typeii!B6), sheet7!B6, typeii!B6)):b:1:1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C23:t::l:2:f:3\ncell:D23:t::l:2:f:3\ncell:E23:t::l:2:f:3\ncell:F23:t::b::2:::l:1:f:3\ncell:G23:vtf:t: :IF(AND(ISBLANK(typeii!B6),ISBLANK(sheet7!B6)), \" \", IF(ISBLANK(typeii!B6), (sheet7!E6*sheet7!F6), (typeii!E6*typeii!F6))):b::1::1:f:3:ntvf:1\ncell:A24:b::1::\ncell:B24:vtf:t: :IF(AND(ISBLANK(TYPEII!B7),ISBLANK(SHEET7!B7)), \" \", IF(ISBLANK(TYPEII!B7), SHEET7!B7, TYPEII!B7)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C24:t::l:2:f:3\ncell:D24:t::l:2:f:3\ncell:E24:t::l:2:f:3\ncell:F24:t::b::2:::l:1:f:3\ncell:G24:vtf:t: :IF(AND(ISBLANK(TYPEII!B7),ISBLANK(SHEET7!B7)), \" \", IF(ISBLANK(TYPEII!B7), (SHEET7!E7*SHEET7!F7), (TYPEII!E7*TYPEII!F7))):b::1::1:f:3:ntvf:1\ncell:A25:b::1::\ncell:B25:vtf:t: :IF(AND(ISBLANK(TYPEII!B8),ISBLANK(SHEET7!B8)), \" \", IF(ISBLANK(TYPEII!B8), SHEET7!B8, TYPEII!B8)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C25:t::l:2:f:3\ncell:D25:t::l:2:f:3\ncell:E25:t::l:2:f:3\ncell:F25:t::b::2:::l:1:f:3\ncell:G25:vtf:t: :IF(AND(ISBLANK(TYPEII!B8),ISBLANK(SHEET7!B8)), \" \", IF(ISBLANK(TYPEII!B8), (SHEET7!E8*SHEET7!F8), (TYPEII!E8*TYPEII!F8))):b::1::1:f:3:ntvf:1\ncell:A26:b::1::\ncell:B26:vtf:t: :IF(AND(ISBLANK(TYPEII!B9),ISBLANK(SHEET7!B9)), \" \", IF(ISBLANK(TYPEII!B9), SHEET7!B9, TYPEII!B9)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C26:t::l:2:f:3\ncell:D26:t::l:2:f:3\ncell:E26:t::l:2:f:3\ncell:F26:t::b::2:::l:1:f:3\ncell:G26:vtf:t: :IF(AND(ISBLANK(TYPEII!B9),ISBLANK(SHEET7!B9)), \" \", IF(ISBLANK(TYPEII!B9), (SHEET7!E9*SHEET7!F9), (TYPEII!E9*TYPEII!F9))):b::1::1:f:3:ntvf:1\ncell:A27:b::1::\ncell:B27:vtf:t: :IF(AND(ISBLANK(TYPEII!B10),ISBLANK(SHEET7!B10)), \" \", IF(ISBLANK(TYPEII!B10), SHEET7!B10, TYPEII!B10)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C27:t::l:2:f:3\ncell:D27:t::l:2:f:3\ncell:E27:t::l:2:f:3\ncell:F27:t::b::2:::l:1:f:3\ncell:G27:vtf:t: :IF(AND(ISBLANK(TYPEII!B10),ISBLANK(SHEET7!B10)), \" \", IF(ISBLANK(TYPEII!B10), (SHEET7!E10*SHEET7!F10), (TYPEII!E10*TYPEII!F10))):b::1::1:f:3:ntvf:1\ncell:A28:b::1::\ncell:B28:vtf:t: :IF(AND(ISBLANK(TYPEII!B11),ISBLANK(SHEET7!B11)), \" \", IF(ISBLANK(TYPEII!B11), SHEET7!B11, TYPEII!B11)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C28:t::l:2:f:3\ncell:D28:t::l:2:f:3\ncell:E28:t::l:2:f:3\ncell:F28:t::b::2:::l:1:f:3\ncell:G28:vtf:t: :IF(AND(ISBLANK(TYPEII!B11),ISBLANK(SHEET7!B11)), \" \", IF(ISBLANK(TYPEII!B11), (SHEET7!E11*SHEET7!F11), (TYPEII!E11*TYPEII!F11))):b::1::1:f:3:ntvf:1\ncell:A29:b::1::\ncell:B29:vtf:t: :IF(AND(ISBLANK(TYPEII!B12),ISBLANK(SHEET7!B12)), \" \", IF(ISBLANK(TYPEII!B12), SHEET7!B12, TYPEII!B12)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C29:t::l:2:f:3\ncell:D29:t::l:2:f:3\ncell:E29:t::l:2:f:3\ncell:F29:t::b::2:::l:1:f:3\ncell:G29:vtf:t: :IF(AND(ISBLANK(TYPEII!B12),ISBLANK(SHEET7!B12)), \" \", IF(ISBLANK(TYPEII!B12), (SHEET7!E12*SHEET7!F12), (TYPEII!E12*TYPEII!F12))):b::1::1:f:3:ntvf:1\ncell:A30:b::1::\ncell:B30:vtf:t: :IF(AND(ISBLANK(TYPEII!B13),ISBLANK(SHEET7!B13)), \" \", IF(ISBLANK(TYPEII!B13), SHEET7!B13, TYPEII!B13)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C30:t::l:2:f:3\ncell:D30:t::l:2:f:3\ncell:E30:t::l:2:f:3\ncell:F30:t::b::2:::l:1:f:3\ncell:G30:vtf:t: :IF(AND(ISBLANK(TYPEII!B13),ISBLANK(SHEET7!B13)), \" \", IF(ISBLANK(TYPEII!B13), (SHEET7!E13*SHEET7!F13), (TYPEII!E13*TYPEII!F13))):b::1::1:f:3:ntvf:1\ncell:A31:b::1::\ncell:B31:vtf:t: :IF(AND(ISBLANK(TYPEII!B14),ISBLANK(SHEET7!B14)), \" \", IF(ISBLANK(TYPEII!B14), SHEET7!B14, TYPEII!B14)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C31:t::l:2:f:3\ncell:D31:t::l:2:f:3\ncell:E31:t::l:2:f:3\ncell:F31:t::b::2:::l:1:f:3\ncell:G31:vtf:t: :IF(AND(ISBLANK(TYPEII!B14),ISBLANK(SHEET7!B14)), \" \", IF(ISBLANK(TYPEII!B14), (SHEET7!E14*SHEET7!F14), (TYPEII!E14*TYPEII!F14))):b::1::1:f:3:ntvf:1\ncell:A32:b::1::\ncell:B32:vtf:t: :IF(AND(ISBLANK(TYPEII!B15),ISBLANK(SHEET7!B15)), \" \", IF(ISBLANK(TYPEII!B15), SHEET7!B15, TYPEII!B15)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C32:t::l:2:f:3\ncell:D32:t::l:2:f:3\ncell:E32:t::l:2:f:3\ncell:F32:t::b::2:::l:1:f:3\ncell:G32:vtf:t: :IF(AND(ISBLANK(TYPEII!B15),ISBLANK(SHEET7!B15)), \" \", IF(ISBLANK(TYPEII!B15), (SHEET7!E15*SHEET7!F15), (TYPEII!E15*TYPEII!F15))):b::1::1:f:3:ntvf:1\ncell:A33:b::1::\ncell:B33:vtf:t: :IF(AND(ISBLANK(TYPEII!B16),ISBLANK(SHEET7!B16)), \" \", IF(ISBLANK(TYPEII!B16), SHEET7!B16, TYPEII!B16)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C33:l:2:f:3\ncell:D33:l:2:f:3\ncell:E33:l:2:f:3\ncell:F33:b::2:::l:1:f:3\ncell:G33:vtf:t: :IF(AND(ISBLANK(TYPEII!B16),ISBLANK(SHEET7!B16)), \" \", IF(ISBLANK(TYPEII!B16), (SHEET7!E16*SHEET7!F16), (TYPEII!E16*TYPEII!F16))):b::1::1:f:3:ntvf:1\ncell:A34:b::1::\ncell:B34:vtf:t: :IF(AND(ISBLANK(TYPEII!B17),ISBLANK(SHEET7!B17)), \" \", IF(ISBLANK(TYPEII!B17), SHEET7!B17, TYPEII!B17)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C34:t::l:2:f:3\ncell:D34:t::l:2:f:3\ncell:E34:t::l:2:f:3\ncell:F34:t::b::2:::l:1:f:3\ncell:G34:vtf:t: :IF(AND(ISBLANK(TYPEII!B17),ISBLANK(SHEET7!B17)), \" \", IF(ISBLANK(TYPEII!B17), (SHEET7!E17*SHEET7!F17), (TYPEII!E17*TYPEII!F17))):b::1::1:f:3:ntvf:1\ncell:A35:b::1::\ncell:B35:vtf:t: :IF(AND(ISBLANK(TYPEII!B18),ISBLANK(SHEET7!B18)), \" \", IF(ISBLANK(TYPEII!B18), SHEET7!B18, TYPEII!B18)):b::1::1:f:3:cf:2:colspan:5:rowspan:1\ncell:C35:t::b:::2::l:1:f:3\ncell:D35:t::b:::2::l:1:f:3\ncell:E35:t::b:::2::l:1:f:3\ncell:F35:t::b::2:2::l:1:f:3\ncell:G35:vtf:t: :IF(AND(ISBLANK(TYPEII!B18),ISBLANK(SHEET7!B18)), \" \", IF(ISBLANK(TYPEII!B18), (SHEET7!E18*SHEET7!F18), (TYPEII!E18*TYPEII!F18))):b::1::1:f:3:ntvf:1\ncell:B36:b:2::::l:1:f:10\ncell:C36:b:2::::l:1:f:10\ncell:D36:b:2::::l:1:f:10\ncell:E36:b:2::::l:1:f:11\ncell:F36:t:Subtotal:b:2::::l:1:f:9\ncell:G36:vtf:n:0:SUM(G23\\cG35):b:1::::f:9:ntvf:1\ncell:B37:t:NOTES:b:::1::l:1:f:11:cf:2:colspan:3:rowspan:1\ncell:C37:t::b:::2::l:1:f:10\ncell:D37:t::b:::2::l:1:f:10\ncell:F37:t:Tax Rate:l:1:f:9\ncell:G37:v:0:f:1:ntvf:2\ncell:B38:b:1::::f:1:cf:2:colspan:3\ncell:C38:t::b:2::::l:1:f:10\ncell:D38:t::b:2::::l:1:f:10\ncell:F38:t:Tax:l:1:f:9\ncell:G38:vtf:n:0:G37*G36:f:1:ntvf:1\ncell:B39:f:1:cf:2:colspan:3\ncell:C39:t::l:2:f:10\ncell:D39:t::l:2:f:10\ncell:F39:t:Other:b:::1::l:1:f:9\ncell:G39:v:0:b:::1::f:1:ntvf:1\ncell:B40:b:::1::f:1:cf:2:colspan:3:rowspan:1\ncell:C40:t::l:2:f:10\ncell:D40:t::l:2:f:10\ncell:F40:t:TOTAL:b:1::::l:1:f:11\ncell:G40:vtf:n:0:(G36+G38)+G39:b:1::::f:9:ntvf:1\ncell:B43:t:Thank you for your business:l:1:f:4:cf:1:colspan:6:rowspan:1\ncell:C43:t::l:2:f:10\ncell:D43:t::l:2:f:10\ncell:E43:t::l:2:f:10\ncell:F43:t::l:2:f:10\ncell:G43:t::l:2:f:10\ncol:A:w:10\ncol:B:w:65\ncol:C:w:19\ncol:D:w:10\ncol:E:w:16\ncol:F:w:53\ncol:G:w:64\nrow:1:h:34.5\nrow:2:h:34.5\nrow:3:h:14.25\nrow:4:h:14.25\nrow:5:h:14.25\nrow:6:h:14.25\nrow:7:h:14.25\nrow:8:h:14.25\nrow:9:h:14.25\nrow:10:h:14.25\nrow:11:h:14.25\nrow:12:h:14.25\nrow:14:h:14.25\nrow:15:h:14.25\nrow:16:h:14.25\nrow:17:h:14.25\nrow:18:h:14.25\nrow:19:h:14.25\nrow:22:h:14.25\nrow:23:h:14.25\nrow:24:h:14.25\nrow:25:h:14.25\nrow:26:h:14.25\nrow:27:h:14.25\nrow:28:h:14.25\nrow:29:h:14.25\nrow:30:h:14.25\nrow:31:h:14.25\nrow:32:h:14.25\nrow:33:h:14.25\nrow:34:h:14.25\nrow:35:h:14.25\nrow:36:h:14.25\nrow:37:h:14.25\nrow:38:h:14.25\nrow:39:h:14.25\nrow:40:h:14.25\nrow:43:h:15.75\nsheet:c:7:r:43:h:12.75:needsrecalc:yes\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\ncellformat:3:right\ncolor:1:rgb(0, 0, 0)\ncolor:2:rgb(0,0,0)\ncolor:3:rgb(221, 221, 221)\nfont:1:* * Trebuchet MS\nfont:2:* 10pt *\nfont:3:* 9pt Trebuchet MS\nfont:4:italic bold 10pt Trebuchet MS\nfont:5:italic normal * Trebuchet MS\nfont:6:normal bold 10pt Trebuchet MS\nfont:7:normal bold 14pt Trebuchet MS\nfont:8:normal bold 28pt Trebuchet MS\nfont:9:normal normal * Trebuchet MS\nfont:10:normal normal 10pt Arial\nfont:11:normal normal 10pt Trebuchet MS\nfont:12:normal normal 16pt Trebuchet MS\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nvalueformat:1:#,##0.00\nvalueformat:2:#,##0.00%\nvalueformat:3:m/d/yy\n"},"name":"sheet6","hidden":"0"},"sheet4":{"sheetstr":{"savestr":"version:1.5\ncell:B1:b:::2::l:1:f:7\ncell:C1:b:::2::l:1:f:7\ncell:D1:b:::2::l:1:f:7\ncell:E1:b:::2::l:1:f:7\ncell:F1:b:::2::l:1:f:7\ncell:A2:b::2:::l:1:f:7\ncell:B2:t:INVOICE DETAILS:b:1:1:1:1:l:1:f:8:cf:1:colspan:5\ncell:C2:t::b:2::2::l:1:f:7\ncell:D2:t::b:2::2::l:1:f:7\ncell:E2:t::b:2::2::l:1:f:7\ncell:F2:b:2:1:1::l:1:f:7\ncell:G2:b::::1\ncell:A3:b::2:::l:3:f:7\ncell:B3:b:2::::l:1:f:7\ncell:C3:b:2::::l:1:f:7\ncell:D3:b:2::::l:1:f:7\ncell:E3:b:2::::l:1:f:7\ncell:F3:b:1:1:::l:1:f:7\ncell:G3:b::::1\ncell:A4:b::2:::l:3:f:7\ncell:B4:b:::2::l:1:f:7\ncell:C4:b:::2::l:3:f:4:cf:2\ncell:D4:b:::2::l:1:f:7\ncell:E4:b:::2::l:1:f:7\ncell:F4:b::1:1::l:1:f:7\ncell:G4:b::::1\ncell:A5:b::2:::l:3:f:7\ncell:B5:t:Description:b:1:1:1:1:f:6:cf:1:colspan:3\ncell:C5:t:Description:b:2::2:2:l:3:f:4:cf:2:colspan:2:rowspan:1\ncell:D5:t::b:2:2:2::l:1:f:7\ncell:E5:t:Hours:b:1:1:1:1:f:6:cf:1\ncell:F5:t:Rate:b:1:1:1:1:f:6:cf:1\ncell:G5:b::::1\ncell:A6:b::2:::l:3:f:7\ncell:B6:b:1:1::1:f:1:cf:2:colspan:3\ncell:C6:b:1:1::1:l:3:f:7:cf:2:colspan:2:rowspan:1\ncell:D6:t::b:2:2:2::l:1:f:7\ncell:E6:b:1:1:::f:1:ntvf:1\ncell:F6:b:1:1:::f:1:ntvf:1\ncell:G6:b::::1\ncell:A7:b::2:::l:3:f:7\ncell:B7:b::1::1:f:1:cf:2:colspan:3\ncell:C7:b::1::1:l:1:f:7:colspan:2\ncell:D7:l:1:f:7\ncell:E7:b::1:::f:1:ntvf:1\ncell:F7:b::1:::f:1:ntvf:1\ncell:G7:b::::1\ncell:A8:b::2:::l:3:f:7\ncell:B8:b::1::1:f:1:cf:2:colspan:3\ncell:C8:b::1::1:colspan:2\ncell:E8:b::1:::f:1:ntvf:1\ncell:F8:b::1:::f:1:ntvf:1\ncell:G8:b::::1\ncell:A9:b::2:::l:3:f:7\ncell:B9:b::1::1:f:1:cf:2:colspan:3\ncell:C9:b::1::1:colspan:2\ncell:E9:b::1:::f:1:ntvf:1\ncell:F9:b::1:::f:1:ntvf:1\ncell:G9:b::::1\ncell:A10:b::2:::l:3:f:7\ncell:B10:b::1::1:f:1:cf:2:colspan:3\ncell:C10:b::1::1:colspan:2\ncell:E10:b::1:::f:1:ntvf:1\ncell:F10:b::1:::f:1:ntvf:1\ncell:G10:b::::1\ncell:A11:b::2:::l:3:f:7\ncell:B11:b::1::1:f:1:cf:2:colspan:3\ncell:C11:b::1::1:colspan:2\ncell:E11:b::1:::f:1:ntvf:1\ncell:F11:b::1:::f:1:ntvf:1\ncell:G11:b::::1\ncell:A12:b::2:::l:3:f:7\ncell:B12:b::1::1:f:1:cf:2:colspan:3\ncell:C12:b::1::1:colspan:2\ncell:E12:b::1:::f:1:ntvf:1\ncell:F12:b::1:::f:1:ntvf:1\ncell:G12:b::::1\ncell:A13:b::2:::l:3:f:7\ncell:B13:b::1::1:f:1:cf:2:colspan:3\ncell:C13:b::1::1:colspan:2\ncell:E13:b::1:::f:1:ntvf:1\ncell:F13:b::1:::f:1:ntvf:1\ncell:G13:b::::1\ncell:A14:b::2:::l:3:f:7\ncell:B14:b::1::1:f:1:cf:2:colspan:3\ncell:C14:b::1::1:colspan:2\ncell:E14:b::1:::f:1:ntvf:1\ncell:F14:b::1:::f:1:ntvf:1\ncell:G14:b::::1\ncell:A15:b::2:::l:3:f:7\ncell:B15:b::1::1:f:1:cf:2:colspan:3\ncell:C15:b::1::1:colspan:2\ncell:E15:b::1:::f:1:ntvf:1\ncell:F15:b::1:::f:1:ntvf:1\ncell:G15:b::::1\ncell:A16:b::2:::l:3:f:7\ncell:B16:b::1::1:f:1:cf:2:colspan:3\ncell:C16:b::1::1:colspan:2\ncell:E16:b::1:::f:1:ntvf:1\ncell:F16:b::1:::f:1:ntvf:1\ncell:G16:b::::1\ncell:A17:b::2:::l:3:f:7\ncell:B17:b::1::1:f:1:cf:2:colspan:3\ncell:C17:b::1::1:colspan:2\ncell:E17:b::1:::f:1:ntvf:1\ncell:F17:b::1:::f:1:ntvf:1\ncell:G17:b::::1\ncell:A18:b::2:::l:3:f:5\ncell:B18:b::1:1:1:f:1:cf:2:colspan:3\ncell:C18:b::1:1:1:l:3:f:7:cf:2:colspan:2\ncell:D18:b:::2::l:3:f:7:cf:2\ncell:E18:b::1:1::f:1:ntvf:1\ncell:F18:b::1:1::f:1:ntvf:1\ncell:G18:b::::1\ncell:A19:b::2:::l:3:f:7\ncell:F19:b::1::\ncell:G19:b::::1\ncell:A20:b::2:::l:3:f:7\ncell:F20:b::1::\ncell:G20:b::::1\ncell:A21:b::2:::l:3:f:7\ncell:C21:t:Thank you for your business:b::1:::f:3:colspan:4\ncell:D21:t:Thank you for your business:f:2:colspan:4\ncell:E21:t::l:2:f:7\ncell:F21:l:2:f:7\ncell:G21:b::::1\ncell:A22:b::2:::l:3:f:7\ncell:F22:b::1::\ncell:G22:b::::1\ncell:A23:b::2:::l:3:f:7\ncell:B23:b:::2::l:3:f:7\ncell:C23:b:::2::l:3:f:7\ncell:D23:b:::2::l:3:f:7\ncell:E23:b:::2::l:3:f:7\ncell:F23:b::1:1::l:3:f:7\ncell:G23:b::::1\ncell:B24:b:1:::\ncell:C24:b:1:::\ncell:D24:b:1:::\ncell:E24:b:1:::\ncell:F24:b:1:::\ncol:A:w:10\ncol:B:w:42\ncol:C:w:56\ncol:D:w:39\ncol:E:w:48\ncol:F:w:57\nrow:1:h:14.25\nrow:2:h:18.75\nrow:3:h:14.25\nrow:4:h:14.25\nrow:5:h:14.25\nrow:6:h:14.25\nrow:7:h:14.25\nrow:8:h:14.25\nrow:9:h:14.25\nrow:10:h:14.25\nrow:11:h:14.25\nrow:12:h:14.25\nrow:13:h:14.25\nrow:14:h:14.25\nrow:15:h:14.25\nrow:16:h:14.25\nrow:17:h:14.25\nrow:18:h:15.75\nrow:19:h:14.25\nrow:20:h:14.25\nrow:21:h:14.25\nrow:22:h:14.25\nrow:23:h:14.25\nsheet:c:7:r:24:h:12.75:needsrecalc:yes\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\nfont:1:* * Trebuchet MS\nfont:2:italic bold * Trebuchet MS\nfont:3:italic bold 10pt Trebuchet MS\nfont:4:normal bold 10pt Arial\nfont:5:normal bold 12pt Arial\nfont:6:normal normal * Trebuchet MS\nfont:7:normal normal 10pt Arial\nfont:8:normal normal 16pt Arial\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nlayout:3:padding:* * * *;vertical-align:top;\nvalueformat:1:#,##0.00\n"},"name":"typeii","hidden":"0"},"sheet5":{"sheetstr":{"savestr":"version:1.5\ncell:B1:b:::2::l:1:f:7\ncell:C1:b:::2::l:1:f:7\ncell:D1:b:::2::l:1:f:7\ncell:E1:b:::2::l:1:f:7\ncell:F1:b:::2::l:1:f:7\ncell:A2:b::2:::l:1:f:7\ncell:B2:t:INVOICE DETAILS:b:1:1:1:1:l:1:f:8:cf:1:colspan:5\ncell:C2:t::b:2::2::l:1:f:7\ncell:D2:t::b:2::2::l:1:f:7\ncell:E2:t::b:2::2::l:1:f:7\ncell:F2:b:2:1:1::l:1:f:7\ncell:G2:b::::1\ncell:A3:b::2:::l:3:f:7\ncell:B3:b:2::::l:1:f:7\ncell:C3:b:2::::l:1:f:7\ncell:D3:b:2::::l:1:f:7\ncell:E3:b:2::::l:1:f:7\ncell:F3:b:1:1:::l:1:f:7\ncell:G3:b::::1\ncell:A4:b::2:::l:3:f:7\ncell:B4:b:::2::l:1:f:7\ncell:C4:b:::2::l:3:f:4:cf:2\ncell:D4:b:::2::l:1:f:7\ncell:E4:b:::2::l:1:f:7\ncell:F4:b::1:1::l:1:f:7\ncell:G4:b::::1\ncell:A5:b::2:::l:3:f:7\ncell:B5:t:Description:b:1:1:1:1:f:6:cf:1:colspan:3\ncell:C5:t:Description:b:2::2:2:l:3:f:4:cf:2:colspan:2:rowspan:1\ncell:D5:t::b:2:2:2::l:1:f:7\ncell:E5:t:Qty.:b:1:1:1:1:f:6:cf:1\ncell:F5:t:Price:b:1:1:1:1:f:6:cf:1\ncell:G5:b::::1\ncell:A6:b::2:::l:3:f:7\ncell:B6:b:1:1::1:f:1:cf:2:colspan:3\ncell:C6:b:1:1::1:l:3:f:7:cf:2:colspan:2:rowspan:1\ncell:D6:t::b:2:2:2::l:1:f:7\ncell:E6:b:1:1:::f:1:ntvf:1\ncell:F6:b:1:1:::f:1:ntvf:1\ncell:G6:b::::1\ncell:A7:b::2:::l:3:f:7\ncell:B7:b::1::1:f:1:cf:2:colspan:3\ncell:C7:b::1::1:l:1:f:7:colspan:2\ncell:D7:l:1:f:7\ncell:E7:b::1:::f:1:ntvf:1\ncell:F7:b::1:::f:1:ntvf:1\ncell:G7:b::::1\ncell:A8:b::2:::l:3:f:7\ncell:B8:b::1::1:f:1:cf:2:colspan:3\ncell:C8:b::1::1:colspan:2\ncell:E8:b::1:::f:1:ntvf:1\ncell:F8:b::1:::f:1:ntvf:1\ncell:G8:b::::1\ncell:A9:b::2:::l:3:f:7\ncell:B9:b::1::1:f:1:cf:2:colspan:3\ncell:C9:b::1::1:colspan:2\ncell:E9:b::1:::f:1:ntvf:1\ncell:F9:b::1:::f:1:ntvf:1\ncell:G9:b::::1\ncell:A10:b::2:::l:3:f:7\ncell:B10:b::1::1:f:1:cf:2:colspan:3\ncell:C10:b::1::1:colspan:2\ncell:E10:b::1:::f:1:ntvf:1\ncell:F10:b::1:::f:1:ntvf:1\ncell:G10:b::::1\ncell:A11:b::2:::l:3:f:7\ncell:B11:b::1::1:f:1:cf:2:colspan:3\ncell:C11:b::1::1:colspan:2\ncell:E11:b::1:::f:1:ntvf:1\ncell:F11:b::1:::f:1:ntvf:1\ncell:G11:b::::1\ncell:A12:b::2:::l:3:f:7\ncell:B12:b::1::1:f:1:cf:2:colspan:3\ncell:C12:b::1::1:colspan:2\ncell:E12:b::1:::f:1:ntvf:1\ncell:F12:b::1:::f:1:ntvf:1\ncell:G12:b::::1\ncell:A13:b::2:::l:3:f:7\ncell:B13:b::1::1:f:1:cf:2:colspan:3\ncell:C13:b::1::1:colspan:2\ncell:E13:b::1:::f:1:ntvf:1\ncell:F13:b::1:::f:1:ntvf:1\ncell:G13:b::::1\ncell:A14:b::2:::l:3:f:7\ncell:B14:b::1::1:f:1:cf:2:colspan:3\ncell:C14:b::1::1:colspan:2\ncell:E14:b::1:::f:1:ntvf:1\ncell:F14:b::1:::f:1:ntvf:1\ncell:G14:b::::1\ncell:A15:b::2:::l:3:f:7\ncell:B15:b::1::1:f:1:cf:2:colspan:3\ncell:C15:b::1::1:colspan:2\ncell:E15:b::1:::f:1:ntvf:1\ncell:F15:b::1:::f:1:ntvf:1\ncell:G15:b::::1\ncell:A16:b::2:::l:3:f:7\ncell:B16:b::1::1:f:1:cf:2:colspan:3\ncell:C16:b::1::1:colspan:2\ncell:E16:b::1:::f:1:ntvf:1\ncell:F16:b::1:::f:1:ntvf:1\ncell:G16:b::::1\ncell:A17:b::2:::l:3:f:7\ncell:B17:b::1::1:f:1:cf:2:colspan:3\ncell:C17:b::1::1:colspan:2\ncell:E17:b::1:::f:1:ntvf:1\ncell:F17:b::1:::f:1:ntvf:1\ncell:G17:b::::1\ncell:A18:b::2:::l:3:f:5\ncell:B18:b::1:1:1:f:1:cf:2:colspan:3\ncell:C18:b::1:1:1:l:3:f:7:cf:2:colspan:2\ncell:D18:b:::2::l:3:f:7:cf:2\ncell:E18:b::1:1::f:1:ntvf:1\ncell:F18:b::1:1::f:1:ntvf:1\ncell:G18:b::::1\ncell:A19:b::2:::l:3:f:7\ncell:F19:b::1::\ncell:G19:b::::1\ncell:A20:b::2:::l:3:f:7\ncell:F20:b::1::\ncell:G20:b::::1\ncell:A21:b::2:::l:3:f:7\ncell:C21:t:Thank you for your business:b::1:::f:3:colspan:4\ncell:D21:t:Thank you for your business:f:2:colspan:4\ncell:E21:t::l:2:f:7\ncell:F21:l:2:f:7\ncell:G21:b::::1\ncell:A22:b::2:::l:3:f:7\ncell:F22:b::1::\ncell:G22:b::::1\ncell:A23:b::2:::l:3:f:7\ncell:B23:b:::2::l:3:f:7\ncell:C23:b:::2::l:3:f:7\ncell:D23:b:::2::l:3:f:7\ncell:E23:b:::2::l:3:f:7\ncell:F23:b::1:1::l:3:f:7\ncell:G23:b::::1\ncell:B24:b:1:::\ncell:C24:b:1:::\ncell:D24:b:1:::\ncell:E24:b:1:::\ncell:F24:b:1:::\ncol:A:w:10\ncol:B:w:42\ncol:C:w:56\ncol:D:w:39\ncol:E:w:48\ncol:F:w:57\nrow:1:h:14.25\nrow:2:h:18.75\nrow:3:h:14.25\nrow:4:h:14.25\nrow:5:h:14.25\nrow:6:h:14.25\nrow:7:h:14.25\nrow:8:h:14.25\nrow:9:h:14.25\nrow:10:h:14.25\nrow:11:h:14.25\nrow:12:h:14.25\nrow:13:h:14.25\nrow:14:h:14.25\nrow:15:h:14.25\nrow:16:h:14.25\nrow:17:h:14.25\nrow:18:h:15.75\nrow:19:h:14.25\nrow:20:h:14.25\nrow:21:h:14.25\nrow:22:h:14.25\nrow:23:h:14.25\nsheet:c:7:r:24:h:12.75:needsrecalc:yes\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\nfont:1:* * Trebuchet MS\nfont:2:italic bold * Trebuchet MS\nfont:3:italic bold 10pt Trebuchet MS\nfont:4:normal bold 10pt Arial\nfont:5:normal bold 12pt Arial\nfont:6:normal normal * Trebuchet MS\nfont:7:normal normal 10pt Arial\nfont:8:normal normal 16pt Arial\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nlayout:3:padding:* * * *;vertical-align:top;\nvalueformat:1:#,##0.00\n"},"name":"sheet7","hidden":"0"}},"EditableCells":{"allow":true,"cells":{"typei!C5":true,"typei!C6":true,"typei!C7":true,"typei!C8":true,"typei!C9":true,"typei!C11":true,"typei!C12":true,"typei!C13":true,"typei!C14":true,"typei!C15":true,"typei!C16":true,"typei!C18":true,"typei!C20":true,"typei!D20":true,"typei!C23":true,"typei!C24":true,"typei!C25":true,"typei!C26":true,"typei!C27":true,"typei!C28":true,"typei!C29":true,"typei!C30":true,"typei!C31":true,"typei!C32":true,"typei!C33":true,"typei!C34":true,"typei!C35":true,"typei!F23":true,"typei!F24":true,"typei!F25":true,"typei!F26":true,"typei!F27":true,"typei!F28":true,"typei!F29":true,"typei!F30":true,"typei!F31":true,"typei!F32":true,"typei!F33":true,"typei!F34":true,"typei!F35":true,"typeiii!B2":true,"typeiii!F4":true,"typeiii!G4":true,"typeiii!B5":true,"typeiii!B7":true,"typeiii!B8":true,"typeiii!B9":true,"typeiii!B10":true,"typeiii!B11":true,"typeiii!B12":true,"typeiii!B14":true,"typeiii!B15":true,"typeiii!B16":true,"typeiii!B17":true,"typeiii!B18":true,"typeiii!B19":true,"typeiii!B20":true,"typeiii!B23":true,"typeiii!B24":true,"typeiii!B25":true,"typeiii!B26":true,"typeiii!B27":true,"typeiii!B28":true,"typeiii!B29":true,"typeiii!B30":true,"typeiii!B31":true,"typeiii!B32":true,"typeiii!B33":true,"typeiii!B34":true,"typeiii!B35":true,"typeiii!G23":true,"typeiii!G24":true,"typeiii!G25":true,"typeiii!G26":true,"typeiii!G27":true,"typeiii!G28":true,"typeiii!G29":true,"typeiii!G30":true,"typeiii!G31":true,"typeiii!G32":true,"typeiii!G33":true,"typeiii!G34":true,"typeiii!G35":true,"typeiii!B38":true,"typeiii!B39":true,"typeiii!B40":true,"typeiii!F36":true,"typeiii!G37":true,"typeiii!F37":true,"typeiii!F39":true,"typeiii!G39":true,"typeiii!F38":true,"sheet6!B2":true,"sheet6!F4":true,"sheet6!G4":true,"sheet6!B5":true,"sheet6!B7":true,"sheet6!B8":true,"sheet6!B9":true,"sheet6!B10":true,"sheet6!B11":true,"sheet6!B12":true,"sheet6!B14":true,"sheet6!B15":true,"sheet6!B16":true,"sheet6!B17":true,"sheet6!B18":true,"sheet6!B19":true,"sheet6!B20":true,"sheet6!B38":true,"sheet6!B39":true,"sheet6!B40":true,"sheet6!F36":true,"sheet6!G37":true,"sheet6!F37":true,"sheet6!F39":true,"sheet6!G39":true,"sheet6!F38":true,"typeii!B6":true,"typeii!B7":true,"typeii!B8":true,"typeii!B9":true,"typeii!B10":true,"typeii!B11":true,"typeii!B12":true,"typeii!B13":true,"typeii!B14":true,"typeii!B15":true,"typeii!B16":true,"typeii!B17":true,"typeii!B18":true,"typeii!E6":true,"typeii!E7":true,"typeii!E8":true,"typeii!E9":true,"typeii!E10":true,"typeii!E11":true,"typeii!E12":true,"typeii!E13":true,"typeii!E14":true,"typeii!E15":true,"typeii!E16":true,"typeii!E17":true,"typeii!E18":true,"typeii!F6":true,"typeii!F7":true,"typeii!F8":true,"typeii!F9":true,"typeii!F10":true,"typeii!F11":true,"typeii!F12":true,"typeii!F13":true,"typeii!F14":true,"typeii!F15":true,"typeii!F16":true,"typeii!F17":true,"typeii!F18":true,"sheet7!F6":true,"sheet7!F7":true,"sheet7!F8":true,"sheet7!F9":true,"sheet7!F10":true,"sheet7!F11":true,"sheet7!F12":true,"sheet7!F13":true,"sheet7!F14":true,"sheet7!F15":true,"sheet7!F16":true,"sheet7!F17":true,"sheet7!F18":true,"sheet7!E6":true,"sheet7!E7":true,"sheet7!E8":true,"sheet7!E9":true,"sheet7!E10":true,"sheet7!E11":true,"sheet7!E12":true,"sheet7!E13":true,"sheet7!E14":true,"sheet7!E15":true,"sheet7!E16":true,"sheet7!E17":true,"sheet7!E18":true,"sheet7!B6":true,"sheet7!B7":true,"sheet7!B8":true,"sheet7!B9":true,"sheet7!B10":true,"sheet7!B11":true,"sheet7!B12":true,"sheet7!B13":true,"sheet7!B14":true,"sheet7!B15":true,"sheet7!B16":true,"sheet7!B17":true,"sheet7!B18":true,"typei!D8":true,"typei!D15":true,"typei!D18":true,"typeiii!C5":true,"sheet6!C5":true},"constraints":{}}}
+</textarea>
+
+<script>
+  loadAndStartupApp();
+</script>
+
+<div data-role="footer" class="ui-bar" data-theme="a"  data-position="fixed" data-id: "myfooter">
+  <table align="center"> <tr><td>
+ <div data-role="controlgroup" data-type="horizontal">
+   <div id="footerbtn1" data-role="button" class="ui-btn-active" onclick="activateFooterBtn(1)"><H1>Type1</H1></div>
+   <div id="footerbtn2"  data-role="button" onclick="activateFooterBtn(2)"><H1>Type2</H1></div>
+   <div id="footerbtn3"  data-role="button" onclick="activateFooterBtn(3)"><H1>Type3</H1></div>
+   <div id="footerbtn4"  data-role="button" onclick="activateFooterBtn(4)"><H1>Detail1</H1></div>
+   <div id="footerbtn5"  data-role="button" onclick="activateFooterBtn(5)"><H1>Detail2</H1></div>
+   
+<div>
+   </td></tr>
+</table>
+</div>
+
+</div> <!-- page -->
+
+<script>
+    //retrieve the previous page
+    // var previousPage = window.sessionStorage.getItem("page"):
+    // var currentPage = $.mobile.activePage[0].baseURI;
+    // //store it
+    // window.sessionStorage.setItem("page",currentPage); 
+
+    // document.addEventListener('backbutton', onBackKeyDown, false);
+    // function onBackKeyDown()
+    // {
+    //   alert($.mobile.activePage[0].baseURI);
+    //   var currentPage = $.mobile.activePage[0].baseURI;
+    //   if (currentPage.indexOf("index") != -1)
+    //   {
+    //     alert("index.html, exiting");
+    //     navigator.app.exitApp();
+    //   }
+    //   else
+    //   {
+    //     alert("Not index.html");
+    //     navigator.app.backHistory();
+    //     // window.location.href = previousPage;
+    //   }
+    //   event.preventDefault();
+    // }
+
+</script>
+
+</body>
+</html>

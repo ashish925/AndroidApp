@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html>
+<head>
+</head>
+<body> 
+
+<div data-role="page" id="dropboxFileList" data-cache="never" data-scroll='y' data-iscroll='enable'>
+	<div id="header" data-role="header" data-theme="a" class="ui-bar">
+	  <div class="ui-grid-b">
+	    <div class="ui-block-a">
+              <div data-role="button" data-inline="true" data-icon="home"
+		onclick="changePage('#indexPage');">Home</div>
+            <div data-role="button" data-inline="true" data-icon="back"
+                onclick=" window.history.back();">Back</div>
+
+	    </div>
+            <div class="ui-block-b">
+                <div  data-role="button" onclick=dropboxHandler.saveLocalPage();>Move to iPad</div>
+
+                
+            </div>
+
+            <div class="ui-block-c">
+               <span id="dropboxFileList-fname" style="vertical-align:middle;position: absolute; right: 40px; top: .4em;"></span>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="content" data-role="content" data-theme="d"  >
+        <div id="scroll-content">
+
+             <ul data-role="listview" data-theme="d" id="dropboxList1">
+              </ul>
+
+            <ul data-role="listview" data-scroll='y' data-theme="d" id="dropboxList" style="display:none">
+	      <li class="fieldcontain">
+	      <div class="ui-grid-b">
+		  <div class="ui-block-a">
+              <!--ProtectedImagePlace-->
+		  </div>
+		
+	          <div class="ui-block-b">
+		       <span style="vertical-align:middle;position: absolute;top:1.2em;"><h2>!--Template1--<h2></span>
+		  </div>
+		  <div class="ui-block-c">		
+		         <fieldset data-role="controlgroup"
+	               data-type="vertical">
+
+		         <button onclick="dropboxHandler.Delete('!--Template2--')">Delete</button>
+		         </fieldset>
+		   </div>
+		   
+	      </div>
+	      </li>
+              </ul>
+            </div>
+
+	      
+	</div>
+    
+<div id="footer"></div>
+</div>
+
+
+
+
+
+</body>
+</html>

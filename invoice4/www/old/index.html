@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+	<!-- Change this if you want to allow scaling -->
+    <meta name="viewport" content="width=default-width, user-scalable=no" />
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <title>HelloWorld</title>
+
+
+<link rel="stylesheet"  href="lib/jquery/_assets/css/jqm-docs.css"/> 
+<link rel="stylesheet"  href="lib/jquery/jquery.mobile.css" /> 
+
+
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.1.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="aspiringwi.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+        function BlockMove(event) {
+            event.preventDefault();
+        }
+
+	function onBodyLoad()
+	{
+		document.addEventListener("deviceready",onDeviceReady,false);
+	}
+        function onPause() {
+           console.log("app paused");
+       }
+        function onResume() {
+console.log("app resumed");
+       }
+
+        function onDestroy() {
+console.log("app destroyed");
+       }
+
+
+        /* When this function is called, PhoneGap has been initialized and is ready to roll */
+	function onDeviceReady()
+	{
+              //ChildBrowser.install();
+              //window.localStorage.clear();
+              //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onInitGotFs, onInitGotFail);
+             document.addEventListener("backbutton", onBackButtonPress, false);
+document.addEventListener("menubutton", onMenuButtonPress, false);
+document.addEventListener("searchbutton", onSearchButtonPress, false);
+document.addEventListener("pause", onPause, false);
+document.addEventListener("resume", onResume, false);
+document.addEventListener("destroy", onDestroy, false);
+
+
+	}
+
+
+   </script>
+
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+
+<!-- The following are the core app -->
+<script type="text/javascript" src="lib/aspiring/aspiringscc.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspirings.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringt.js"></script>
+<!-- <script type="text/javascript" src="lib/aspiring/aspiringte.js"></script> -->
+<script type="text/javascript" src="lib/aspiring/socialcalctableeditor.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringfn.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringf.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringscp.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringssc.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringwb.js"></script>
+<script type="text/javascript" src="lib/aspiring/aspiringwbc.js"></script>
+<script type="text/javascript" src="lib/aspiring/json2.js"></script>
+
+
+<!-- The following are jquery -->
+<script type="text/javascript" src="lib/jquery/jquery.mobile.js"></script>
+
+<!-- The following are graphing -->
+
+<script type="text/javascript"
+    src="lib/graphing/jquery.flot.min.js">
+</script>
+<script type="text/javascript"    src="lib/graphing/jquery.flot.pie.min.js"></script>
+
+
+<!-- The following is called after highcharts is loaded -->
+<!-- <script type="text/javascript" src="aspiringag.js"></script> -->
+<script type="text/javascript" src="AppGeneral.js"></script>
+
+  </head>
+  <body onload="onBodyLoad()" ontouchmove="BlockMove(event);" onresize="SocialCalc.ProcessOrientationChange(event);">
+
+<div data-role="page" class="type-index" id="indexPage" data-fullscreen="true"  data-theme="d">
+  
+<div data-role="header" data-theme="a" data-position="fixed" class="ui-bar">
+  
+<div class="ui-grid-b">
+  <div class="ui-block-a">
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">    
+    <div data-role="button" data-inline="true" onclick="showEmailComposer();"><h1>Email</h1></div>
+    <!--
+    <div data-role="button" data-inline="true" onclick="showPrintDialog();"><h1>Print</h1></div>
+    -->
+    <a href="file.html" data-role="button" data-inline="true"><h1>File</h1></a>
+    </div>
+  </div>
+  <div class="ui-block-b">
+  </div>
+
+  <div class="ui-block-c">
+       <span id="indexPage-fname" style="vertical-align:middle;">Editing: default</span>
+       <img style="position: absolute; right: 10px; top: 0.8em" src="lib/aspiring/images/sc-logo.gif"></img>
+<!--    
+     <div data-role="controlgroup" data-inline="true" data-type="horizontal">        
+     <div data-role="button" onclick="showBuyLink();">Buy</div>
+     <div data-role="button" onclick="showHelp();">Help</div>
+     </div>
+     -->
+  </div>
+
+</div> <!-- ui-grid-b -->
+
+</div> <!-- header -->
+
+ 
+  <div id="workbookControl" style="background-color:#80A9F3;">
+    </div>
+
+     <div id="tableeditor">editor goes here</div> 
+
+
+   <div id="msg" onclick="this.innerHTML='&nbsp;';"></div> 
+
+
+    
+<textarea name="savestr" id="sheetdata" style="display:none;">
+{"numsheets":2,"currentid":"sheet1","currentname":"Receipt-1","sheetArr":{"sheet1":{"sheetstr":{"savestr":"version:1.5\ncell:B1:f:1\ncell:C1:f:1\ncell:D1:f:1\ncell:E1:f:1\ncell:F1:f:1\ncell:G1:f:1\ncell:H1:f:1\ncell:I1:f:1\ncell:J1:f:1\ncell:K1:f:1\ncell:B2:b:::1::f:1\ncell:C2:b:::1::f:1\ncell:D2:b:::1::f:1\ncell:E2:b:::1::f:1\ncell:F2:b:::1::f:1\ncell:G2:b:::1::f:1\ncell:H2:b:::1::f:1\ncell:I2:b:::1::f:1\ncell:J2:b:::1::f:1\ncell:K2:b:::1::f:1\ncell:A3:b::1::\ncell:B3:t:RENT RECEIPT:b:1:::1:l:1:f:1:cf:2:colspan:2\ncell:C3:b:1::::l:1:f:1\ncell:D3:b:1::::l:1:f:1\ncell:E3:b:1::1::l:1:f:1:tvf:3:colspan:2:rowspan:3\ncell:F3:b:1::::l:1:f:1\ncell:G3:b:1::::l:1:f:1\ncell:H3:t:Date :b:1::::l:1:f:1:cf:3\ncell:I3:b:1:1:1::l:1:f:1:cf:3:ntvf:2:colspan:2:rowspan:1\ncell:J3:t::b:1::::l:1:f:1:cf:3:ntvf:2\ncell:K3:b:1:1::1:l:1:f:1:cf:3:ntvf:2\ncell:L3:b::::1\ncell:M3:l:1:f:2\ncell:A4:b::1::\ncell:B4:b::::1:l:1:f:1\ncell:C4:l:1:f:1\ncell:D4:l:1:f:1\ncell:E4:l:1:f:1\ncell:F4:l:1:f:1\ncell:G4:l:1:f:1\ncell:H4:t:No.:l:1:f:1:cf:3\ncell:I4:v:1:b:1:1:1::l:1:f:1:cf:3:colspan:2:rowspan:1\ncell:J4:t::b:2:1:1::l:1:f:1:cf:3\ncell:K4:b::1::1:l:1:f:1\ncell:L4:b::::1\ncell:A5:b::1::\ncell:B5:b:::1:1:l:1:f:1\ncell:C5:b:::1::l:1:f:1\ncell:D5:b:::1::l:1:f:1\ncell:E5:b:::1::l:1:f:1\ncell:F5:b:::1::l:1:f:1\ncell:G5:b:::1::l:1:f:1\ncell:H5:b:::1::l:1:f:1\ncell:I5:b:1::1::l:1:f:1\ncell:J5:b:1:1:1::l:1:f:1\ncell:K5:b::1::1:l:1:f:1\ncell:L5:b::::1\ncell:A6:b::1::\ncell:B6:t:Received from\\c :b:1:::1:l:1:f:1:cf:3\ncell:C6:t:[Name of Tenant]:b:1:1:1:1:l:1:f:1:cf:2:colspan:2\ncell:D6:t::b:1:1:1::l:1:f:1:cf:2\ncell:E6:t::b:1::1::l:1:f:1:cf:2\ncell:F6:l:1:f:1\ncell:G6:t:The Sum of\\c:b:1::::l:1:f:1:colspan:2\ncell:H6:t:The Sum of :b:1:1:1::l:1:f:1:cf:3\ncell:I6:b:1:1:1:1:f:1:colspan:2\ncell:J6:t::b::1:1::l:1:f:1:cf:2:ntvf:1\ncell:K6:b::1::1:l:1:f:1:cf:2:ntvf:1\ncell:L6:b::::1\ncell:A7:b::1::\ncell:B7:b::::1:l:1:f:1\ncell:C7:b:1:1:1:1:l:1:f:1:cf:2:colspan:7:rowspan:1\ncell:D7:t::b::1:1::l:1:f:1:cf:2\ncell:E7:t::b::1:1::l:1:f:1:cf:2\ncell:F7:t::b::1:1::l:1:f:1:cf:2\ncell:G7:t::b::1:1::l:1:f:1:cf:2\ncell:H7:t::b::1:1::l:1:f:1:cf:2\ncell:I7:t::b::1:1::l:1:f:1:cf:2\ncell:J7:t:(Dollars):b:1:1:1:1:l:1:f:1:cf:3\ncell:K7:b::1::1:l:1:f:1:cf:3\ncell:L7:b::::1\ncell:A8:b::1::\ncell:B8:b:::1:1:l:1:f:1\ncell:C8:b:::1::l:1:f:1\ncell:D8:b:::1::l:1:f:1\ncell:E8:b:::1::l:1:f:1\ncell:F8:b:::1::l:1:f:1\ncell:G8:b:::1::l:1:f:1\ncell:H8:b:::1::l:1:f:1\ncell:I8:b:::1::l:1:f:1\ncell:J8:b::1:1::l:1:f:1:cf:3\ncell:K8:b::1::1:l:1:f:1:cf:3\ncell:L8:b::::1\ncell:A9:b::1::\ncell:B9:t:For Rent at\\c :b:1:1:1:1:l:1:f:1:cf:3\ncell:C9:t:[Property Location]:b:1:1:1::l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D9:t::b:1:1:1::l:1:f:1:cf:2\ncell:E9:t::b:1:1:1::l:1:f:1:cf:2\ncell:F9:b:1::::l:1:f:1\ncell:G9:t:Paid by\\c :b:1:1:1:1:l:1:f:1:cf:3\ncell:H9:b:1:1:1:1:l:2:f:1:cf:1\ncell:I9:t: Check No.:b:1:1:1:1:l:1:f:1\ncell:J9:b:1:1:1:1:l:1:f:1:cf:2\ncell:K9:b::1::1:l:1:f:1:cf:2\ncell:L9:b::::1\ncell:A10:b::1::\ncell:B10:b::::1:l:1:f:1\ncell:C10:t:[City, ST  Zip]:b::1:1::l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D10:t::b::1:1::l:1:f:1:cf:2\ncell:E10:t::b::1:1::l:1:f:1:cf:2\ncell:F10:l:1:f:1\ncell:G10:l:1:f:1\ncell:H10:b:1:1:1:1:l:2:f:1:cf:1:tvf:3\ncell:I10:t: Cash:b:1:1:1:1:l:1:f:1\ncell:J10:b::1:::l:1:f:1:cf:3\ncell:K10:b::1::1:l:1:f:1\ncell:L10:b::::1\ncell:A11:b::1::\ncell:B11:t:Rent Starting Period\\c:b:1:1:1:1:l:1:f:1:cf:3\ncell:C11:t:[begin date]:b:1:1:1:1:l:1:f:1:cf:2:ntvf:2:colspan:3\ncell:D11:l:1:f:1:ntvf:2\ncell:E11:b:1:1:1:1:l:1:f:1:cf:2:ntvf:2\ncell:F11:l:1:f:1:cf:1\ncell:G11:l:1:f:1\ncell:H11:b:1:1:1:1:l:2:f:1:cf:1:tvf:3\ncell:I11:t: Money Order:b:1:1:1:1:l:1:f:1\ncell:J11:b::1:::l:1:f:1\ncell:K11:b::1::1:l:1:f:1\ncell:L11:b::::1\ncell:A12:b::1::\ncell:B12:t:Billed\\c:b:1:1:1:1:l:1:f:1:cf:3\ncell:C12:t:Monthly:b:1:1:1:1:l:1:f:1:cf:2:ntvf:2:colspan:3\ncell:D12:l:1:f:1:ntvf:2\ncell:E12:b:1:1:1:1:l:1:f:1:cf:2:ntvf:2\ncell:F12:l:1:f:1:cf:1\ncell:G12:l:1:f:1\ncell:H12:l:2:f:1:cf:1\ncell:I12:l:1:f:1\ncell:J12:b::1:::l:1:f:1\ncell:K12:b::1::1:l:1:f:1\ncell:L12:b::::1\ncell:A13:b::1::\ncell:B13:b:1::1::l:1:f:1\ncell:C13:b:::1::l:1:f:1\ncell:D13:b:::1::l:1:f:1\ncell:E13:b:::1::l:1:f:1\ncell:F13:b:::1::l:1:f:1\ncell:G13:b:::1::l:1:f:1\ncell:H13:b:::1::l:1:f:1\ncell:I13:b:::1::l:1:f:1\ncell:J13:b::1:1::l:1:f:1\ncell:K13:b::1::1:l:1:f:1\ncell:L13:b::::1\ncell:A14:b::1::\ncell:B14:t:Received by\\c :b:1:1::1:l:1:f:1:cf:3\ncell:C14:t:[Landlord Name]:b:1:1:1:1:l:1:f:1:cf:2:colspan:4\ncell:D14:t::b:1:1:1::l:1:f:1:cf:2\ncell:E14:t::b:1:1:1::l:1:f:1:cf:2\ncell:F14:b:1::::l:1:f:1\ncell:G14:b:1::::l:1:f:1\ncell:H14:b:1::::l:1:f:1\ncell:I14:b:1::::l:1:f:1\ncell:J14:b:1:1:::l:1:f:1\ncell:K14:b::1::1:l:1:f:1:cf:2:ntvf:1\ncell:L14:b::::1\ncell:A15:b::1::\ncell:B15:b::1::1:l:1:f:1\ncell:C15:t:[Address, City, ST  Zip]:b:1:1:1:1:l:1:f:1:cf:2:colspan:4\ncell:D15:t::b::1:1::l:1:f:1:cf:2\ncell:E15:t::b::1:1::l:1:f:1:cf:2\ncell:F15:l:1:f:1\ncell:G15:l:1:f:1\ncell:H15:l:1:f:1\ncell:I15:l:1:f:1\ncell:J15:b::1:::l:1:f:1\ncell:K15:b::1::1:l:1:f:1\ncell:L15:b::::1\ncell:A16:b::1::\ncell:B16:b::1::1:l:1:f:1\ncell:C16:t:[Phone]:b:1:1:1:1:l:1:f:1:cf:2:colspan:4\ncell:D16:t::b::1:1::l:1:f:1:cf:2\ncell:E16:t::b::1:1::l:1:f:1:cf:2\ncell:F16:b:::1::l:1:f:1\ncell:G16:b:::1::l:1:f:1\ncell:H16:b:::1::l:1:f:1\ncell:I16:t:Thank you:b::1:1::l:1:f:1:colspan:2\ncell:J16:t:Thank you!:b::1:1::l:1:f:1:cf:3\ncell:K16:b::1::1:l:1:f:1\ncell:L16:b::::1\ncell:A17:b::1::\ncell:B17:b:1::1:1:l:1:f:1\ncell:C17:b:1::1::l:1:f:1\ncell:D17:b:1::1::l:1:f:1\ncell:E17:b:1::1::l:1:f:1\ncell:F17:b:1::1::l:1:f:1\ncell:G17:b:1::1::l:1:f:1\ncell:H17:b:1::1::l:1:f:1\ncell:I17:b:1::1::l:1:f:1\ncell:J17:b:1:1:1::l:1:f:1\ncell:K17:b::1:1:1:l:1:f:1\ncell:L17:b::::1\ncell:B18:b:1:::\ncell:C18:b:1:::\ncell:D18:b:1:::\ncell:E18:b:1:::\ncell:F18:b:1:::\ncell:G18:b:1:::\ncell:H18:b:1:::\ncell:I18:b:1:::\ncell:J18:b:1:::\ncell:K18:b:1:::\ncol:A:w:10\ncol:B:w:78\ncol:C:w:65\ncol:D:w:62\ncol:E:w:50\ncol:F:w:18\ncol:G:w:54\ncol:H:w:36\ncol:I:w:42\ncol:J:w:83\ncol:K:w:11\ncol:M:w:108\nrow:1:h:30.75\nrow:2:h:30.75\nrow:3:h:30.75\nrow:4:h:16.5\nrow:5:h:16.5\nrow:6:h:16.5\nrow:7:h:16.5\nrow:8:h:16.5\nrow:9:h:16.5\nrow:10:h:16.5\nrow:11:h:16.5\nrow:12:h:16.5\nrow:13:h:16.5\nrow:14:h:16.5\nrow:15:h:16.5\nrow:16:h:16.5\nrow:17:h:16.5\nrow:18:h:16.5\nrow:19:h:16.5\nrow:20:h:16.5\nrow:21:h:30.75\nrow:22:h:16.5\nrow:23:h:16.5\nrow:24:h:16.5\nrow:25:h:16.5\nrow:26:h:16.5\nrow:27:h:16.5\nrow:28:h:16.5\nrow:29:h:16.5\nrow:30:h:16.5\nrow:31:h:16.5\nrow:32:h:16.5\nrow:33:h:16.5\nrow:34:h:16.5\nrow:35:h:16.5\nrow:36:h:16.5\nrow:37:h:16.5\nrow:38:h:30.75\nrow:39:h:16.5\nrow:40:h:16.5\nrow:41:h:16.5\nrow:42:h:16.5\nrow:43:h:16.5\nrow:44:h:16.5\nrow:45:h:16.5\nrow:46:h:16.5\nrow:47:h:16.5\nrow:48:h:16.5\nrow:49:h:16.5\nrow:50:h:16.5\nrow:51:h:16.5\nsheet:c:13:r:51:h:15\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\ncellformat:3:right\nfont:1:normal normal 10pt *\nfont:2:normal normal 10pt Arial\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nvalueformat:1:_(\"$\"* #,##0.00_);_(\"$\"* \\b(#,##0.00\\b);_(\"$\"* \"\"??_);_(@_)\nvalueformat:2:mm-dd-yy\nvalueformat:3:text-html\n"},"name":"Receipt-1","hidden":"0"},"sheet2":{"sheetstr":{"savestr":"version:1.5\ncell:B2:b:::1:\ncell:C2:b:::1:\ncell:D2:b:::1:\ncell:E2:b:::1:\ncell:F2:b:::1:\ncell:G2:b:::1:\ncell:H2:b:::1:\ncell:I2:b:::1:\ncell:J2:b:::1:\ncell:K2:b:::1:\ncell:A3:b::1::\ncell:B3:t:RENT RECEIPT:b:1:::1:l:1:f:1:cf:2:colspan:2\ncell:C3:b:1::::l:1:f:1\ncell:D3:b:1::::l:1:f:1\ncell:E3:b:1::1::l:1:f:1:tvf:3:rowspan:3\ncell:F3:b:1::::l:1:f:1\ncell:G3:b:1::::l:1:f:1\ncell:H3:t:Date :b:1::::l:1:f:1:cf:3\ncell:I3:b:1:1:1::l:1:f:1:cf:3:ntvf:2:colspan:2:rowspan:1\ncell:J3:t::b:1::::l:1:f:1:cf:3:ntvf:2\ncell:K3:b:1:1::1:l:1:f:2:cf:3:ntvf:2\ncell:L3:b::::1\ncell:A4:b::1::\ncell:B4:b::::1:l:1:f:1\ncell:C4:l:1:f:1\ncell:D4:l:1:f:1\ncell:E4:l:1:f:1\ncell:F4:l:1:f:1\ncell:G4:l:1:f:1\ncell:H4:t:No.:l:1:f:1:cf:3\ncell:I4:v:1:b:1:1:1::l:1:f:1:cf:3:colspan:2:rowspan:1\ncell:J4:t::b:2:1:1::l:1:f:1:cf:3\ncell:K4:b::1::1:l:1:f:2\ncell:L4:b::::1\ncell:A5:b::1::\ncell:B5:b:::1:1:l:1:f:1\ncell:C5:b:::1::l:1:f:1\ncell:D5:b:::1::l:1:f:1\ncell:E5:b:::1::l:1:f:1\ncell:F5:b:::1::l:1:f:1\ncell:G5:b:::1::l:1:f:1\ncell:H5:b:::1::l:1:f:1\ncell:I5:b:1::1::l:1:f:1\ncell:J5:b:1:1:1::l:1:f:1\ncell:K5:b::1::1:l:1:f:2\ncell:L5:b::::1\ncell:A6:b::1::\ncell:B6:t:Received from :b:1:::1:l:1:f:1:cf:3\ncell:C6:t:[Name of Tenant]:b:1:1:1:1:l:1:f:1:cf:2:colspan:2\ncell:D6:t::b:1:1:1::l:1:f:1:cf:2\ncell:E6:t::b:1::1::l:1:f:1:cf:2\ncell:F6:b:1::::l:1:f:1\ncell:G6:t:The Sum of:b:1::::l:1:f:1:colspan:2\ncell:H6:t:The Sum of :b:1:1:1::l:1:f:1:cf:3\ncell:I6:b:1:1:1:1:f:1:colspan:2\ncell:J6:t::b::1:1::l:1:f:1:cf:2:ntvf:1\ncell:K6:b::1::1:l:1:f:2:cf:2:ntvf:1\ncell:L6:b::::1\ncell:A7:b::1::\ncell:B7:b::::1:l:1:f:1\ncell:C7:b:1:1:1:1:l:1:f:1:cf:2:colspan:7:rowspan:1\ncell:D7:t::b::1:1::l:1:f:1:cf:2\ncell:E7:t::b::1:1::l:1:f:1:cf:2\ncell:F7:t::b::1:1::l:1:f:1:cf:2\ncell:G7:t::b::1:1::l:1:f:1:cf:2\ncell:H7:t::b::1:1::l:1:f:1:cf:2\ncell:I7:t::b::1:1::l:1:f:1:cf:2\ncell:J7:t:(Dollars):b:1:1:1:1:l:1:f:1:cf:3\ncell:K7:b::1::1:l:1:f:2:cf:3\ncell:L7:b::::1\ncell:A8:b::1::\ncell:B8:b:::1:1:l:1:f:1\ncell:C8:b:::1::l:1:f:1\ncell:D8:b:::1::l:1:f:1\ncell:E8:b:::1::l:1:f:1\ncell:F8:b:::1::l:1:f:1\ncell:G8:b:::1::l:1:f:1\ncell:H8:b:::1::l:1:f:1\ncell:I8:b:::1::l:1:f:1\ncell:J8:b::1:1::l:1:f:1:cf:3\ncell:K8:b::1::1:l:1:f:2:cf:3\ncell:L8:b::::1\ncell:A9:b::1::\ncell:B9:t:For Rent at :b:1:1:1:1:l:1:f:1:cf:3\ncell:C9:t:[Property Location]:b:1:1:1::l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D9:t::b:1:1:1::l:1:f:1:cf:2\ncell:E9:t::b:1:1:1::l:1:f:1:cf:2\ncell:F9:b:1:1:1::l:1:f:1\ncell:G9:t:Paid by :b:1:1:1::l:1:f:1:cf:3\ncell:H9:b:1:1:1:1:l:2:f:1:cf:1\ncell:I9:t: Check No.:b:1:1:1:1:l:1:f:1\ncell:J9:b:1:1:1:1:l:1:f:1:cf:2\ncell:K9:b::1::1:l:1:f:2:cf:2\ncell:L9:b::::1\ncell:A10:b::1::\ncell:B10:b::::1:l:1:f:1\ncell:C10:t:[City, ST  Zip]:b::1:1::l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D10:t::b::1:1::l:1:f:1:cf:2\ncell:E10:t::b::1:1::l:1:f:1:cf:2\ncell:F10:l:1:f:1\ncell:G10:l:1:f:1\ncell:H10:b:1:1:1:1:l:2:f:1:cf:1:tvf:3\ncell:I10:t: Cash:b:1:1:1:1:l:1:f:1\ncell:J10:b::1:::l:1:f:1:cf:3\ncell:K10:b::1::1:l:1:f:2\ncell:L10:b::::1\ncell:A11:b::1::\ncell:B11:t:For the Period :b:1:1:1:1:l:1:f:1:cf:3\ncell:C11:t:[begin date]:b::1:1::l:1:f:1:cf:2:ntvf:2\ncell:D11:t:to:b::1:1::l:1:f:1:ntvf:2\ncell:E11:t:[end date]:b::1:1::l:1:f:1:cf:2:ntvf:2\ncell:F11:l:1:f:1\ncell:G11:l:1:f:1\ncell:H11:b:1:1:1:1:l:2:f:1:cf:1:tvf:3\ncell:I11:t: Money Order:b:1:1:1:1:l:1:f:1\ncell:J11:b::1:::l:1:f:1\ncell:K11:b::1::1:l:1:f:2\ncell:L11:b::::1\ncell:A12:b::1::\ncell:B12:b:1::1::l:1:f:1\ncell:C12:b:::1::l:1:f:1\ncell:D12:b:::1::l:1:f:1\ncell:E12:b:::1::l:1:f:1\ncell:F12:b:::1::l:1:f:1\ncell:G12:b:::1::l:1:f:1\ncell:H12:b:::1::l:1:f:1\ncell:I12:b:::1::l:1:f:1\ncell:J12:b::1:1::l:1:f:1\ncell:K12:b::1::1:l:1:f:2\ncell:L12:b::::1\ncell:A13:b::1::\ncell:B13:t:Received by :b:1:1::1:l:1:f:1:cf:3\ncell:C13:t:[Landlord Name]:b:1:1:1:1:l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D13:t::b:1:1:1::l:1:f:1:cf:2\ncell:E13:t::b:1:1:1::l:1:f:1:cf:2\ncell:F13:b:1::::l:1:f:1\ncell:G13:b:1::::l:1:f:1\ncell:H13:b:1::::l:1:f:1\ncell:I13:b:1::::l:1:f:1\ncell:J13:b:1:1:::l:1:f:1\ncell:K13:b::1::1:l:1:f:2:cf:2:ntvf:1\ncell:L13:b::::1\ncell:A14:b::1::\ncell:B14:b::1::1:l:1:f:1\ncell:C14:t:[Address, City, ST  Zip]:b:1:1:1:1:l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D14:t::b::1:1::l:1:f:1:cf:2\ncell:E14:t::b::1:1::l:1:f:1:cf:2\ncell:F14:l:1:f:1\ncell:G14:l:1:f:1\ncell:H14:l:1:f:1\ncell:I14:l:1:f:1\ncell:J14:b::1:::l:1:f:1\ncell:K14:b::1::1:l:1:f:2\ncell:L14:b::::1\ncell:A15:b::1::\ncell:B15:b::1::1:l:1:f:1\ncell:C15:t:[Phone]:b:1:1:1:1:l:1:f:1:cf:2:colspan:3:rowspan:1\ncell:D15:t::b::1:1::l:1:f:1:cf:2\ncell:E15:t::b::1:1::l:1:f:1:cf:2\ncell:F15:b:::1::l:1:f:1\ncell:G15:b:::1::l:1:f:1\ncell:H15:b:::1::l:1:f:1\ncell:I15:t:Thank you:b::1:1::l:1:f:1:colspan:2\ncell:J15:t:Thank you!:b::1:1::l:1:f:1:cf:3\ncell:K15:b::1::1:l:1:f:2\ncell:L15:b::::1\ncell:A16:b::1::\ncell:B16:b:1::1:1:l:1:f:1\ncell:C16:b:1::1::l:1:f:1\ncell:D16:b:1::1::l:1:f:1\ncell:E16:b:1::1::l:1:f:1\ncell:F16:b:1::1::l:1:f:1\ncell:G16:b:1::1::l:1:f:1\ncell:H16:b:1::1::l:1:f:1\ncell:I16:b:1::1::l:1:f:1\ncell:J16:b:1:1:1::l:1:f:1\ncell:K16:b::1:1:1:l:1:f:2\ncell:L16:b::::1\ncell:B17:b:1:::\ncell:C17:b:1:::\ncell:D17:b:1:::\ncell:E17:b:1:::\ncell:F17:b:1:::\ncell:G17:b:1:::\ncell:H17:b:1:::\ncell:I17:b:1:::\ncell:J17:b:1:::\ncell:K17:b:1:::\ncol:A:w:10\ncol:B:w:78\ncol:C:w:80\ncol:D:w:39\ncol:E:w:80\ncol:F:w:11\ncol:G:w:32\ncol:H:w:50\ncol:I:w:48\ncol:J:w:76\ncol:K:w:10\nrow:1:h:36\nrow:2:h:16.5\nrow:3:h:16.5\nrow:4:h:16.5\nrow:5:h:16.5\nrow:6:h:16.5\nrow:7:h:16.5\nrow:8:h:16.5\nrow:9:h:16.5\nrow:10:h:16.5\nrow:11:h:16.5\nrow:12:h:16.5\nrow:13:h:16.5\nrow:14:h:16.5\nrow:15:h:18\nrow:16:h:18\nrow:17:h:36\nrow:18:h:16.5\nrow:19:h:16.5\nrow:20:h:16.5\nrow:21:h:16.5\nrow:22:h:16.5\nrow:23:h:16.5\nrow:24:h:16.5\nrow:25:h:16.5\nrow:26:h:16.5\nrow:27:h:16.5\nrow:28:h:16.5\nrow:29:h:16.5\nrow:30:h:16.5\nrow:31:h:18\nrow:32:h:18\nrow:33:h:36\nrow:34:h:16.5\nrow:35:h:16.5\nrow:36:h:16.5\nrow:37:h:16.5\nrow:38:h:16.5\nrow:39:h:16.5\nrow:40:h:16.5\nrow:41:h:16.5\nrow:42:h:16.5\nrow:43:h:16.5\nrow:44:h:16.5\nrow:45:h:16.5\nrow:46:h:16.5\nsheet:c:12:r:46:h:15:needsrecalc:yes\nborder:1:1px solid rgb(0,0,0)\nborder:2:thin solid rgb(0,0,0)\ncellformat:1:center\ncellformat:2:left\ncellformat:3:right\nfont:1:normal normal 10pt *\nfont:2:normal normal 11pt *\nlayout:1:padding:* * * *;vertical-align:bottom;\nlayout:2:padding:* * * *;vertical-align:middle;\nvalueformat:1:_(\"$\"* #,##0.00_);_(\"$\"* \\b(#,##0.00\\b);_(\"$\"* \"\"??_);_(@_)\nvalueformat:2:mm-dd-yy\nvalueformat:3:text-html\n"},"name":"Receipt-2","hidden":"0"}},"EditableCells":{"allow":true,"cells":{"Receipt-1!I16":true,"Receipt-1!J10":true,"Receipt-1!B6":true,"Receipt-1!B9":true,"Receipt-1!B11":true,"Receipt-1!B13":true,"Receipt-1!C6":true,"Receipt-1!C9":true,"Receipt-1!C10":true,"Receipt-1!C11":true,"Receipt-1!C16":true,"Receipt-1!C14":true,"Receipt-1!C15":true,"Receipt-1!D11":true,"Receipt-1!E11":true,"Receipt-1!G9":true,"Receipt-1!H3":true,"Receipt-1!H4":true,"Receipt-1!H6":true,"Receipt-1!I9":true,"Receipt-1!I10":true,"Receipt-1!I11":true,"Receipt-1!I3":true,"Receipt-1!I4":true,"Receipt-1!I6":true,"Receipt-1!J7":true,"Receipt-1!J9":true,"Receipt-1!G6":true,"Receipt-2!I15":true,"Receipt-2!J10":true,"Receipt-2!B6":true,"Receipt-2!B9":true,"Receipt-2!B11":true,"Receipt-2!B13":true,"Receipt-2!C6":true,"Receipt-2!C9":true,"Receipt-2!C10":true,"Receipt-2!C11":true,"Receipt-2!C13":true,"Receipt-2!C14":true,"Receipt-2!C15":true,"Receipt-2!D11":true,"Receipt-2!E11":true,"Receipt-2!G9":true,"Receipt-2!H3":true,"Receipt-2!H4":true,"Receipt-2!H6":true,"Receipt-2!I9":true,"Receipt-2!I10":true,"Receipt-2!I11":true,"Receipt-2!I3":true,"Receipt-2!I4":true,"Receipt-2!I6":true,"Receipt-2!J7":true,"Receipt-2!J9":true,"Receipt-2!G6":true,"Receipt-1!F11":true,"Receipt-1!C7":true,"Receipt-2!C7":true,"Receipt-1!B12":true,"Receipt-1!C12":true,"Receipt-1!E3":true,"Receipt-1!H9":true,"Receipt-2!H9":true,"Receipt-1!H10":true,"Receipt-1!H11":true,"Receipt-2!H10":true,"Receipt-2!H11":true},"constraints":{}}}
+</textarea>
+
+<script>
+
+
+loadAndStartupApp();
+
+					 
+
+</script>
+
+<div data-role="footer" class="ui-bar" data-theme="a"  data-position="fixed" data-id: "myfooter">
+  <table align="center"> <tr><td>
+ <div data-role="controlgroup" data-type="horizontal">
+   <div id="footerbtn1" data-role="button" class="ui-btn-active" onclick="activateFooterBtn(1)"><H1>Receipt1</H1></div>
+   <div id="footerbtn2"  data-role="button" onclick="activateFooterBtn(2)"><H1>Receipt2</H1></div>
+     
+ <div>
+   </td></tr>
+</table>
+</div>
+
+</div> <!-- page -->
+
+</body>
+</html>

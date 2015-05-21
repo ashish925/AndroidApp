@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link href="topcoat/css/topcoat-mobile-dark.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/pageslider.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <div id="viewContainer"></div> <!-- views are inserted here, only 1 is in at a time -->
+   
+   <script id="welcomeView-tpl" type="text/x-handlebars-template">
+        <div id="theTopcoatNavBar" class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item left quarter">
+                <a id="btn-back" class="topcoat-icon-button--quiet" href="#" style="display: none;">
+                  <span class="topcoat-icon topcoat-icon--back"></span>
+                </a>
+            </div>
+            <div class="topcoat-navigation-bar__item center half">
+                <h1 class="topcoat-navigation-bar__title">PhoneGap Sync</h1>
+            </div>
+            <div class="topcoat-navigation-bar__item right quarter">
+            </div>
+        </div>
+        <div id="containerBelowNavBar">
+            <div id="welcomeView">
+                <h2>Welcome to PhoneGap Sync for Android</h2>
+                <p>Once you link this application to your Dropbox account, an /Apps/PhoneGapSync folder is created in your Dropbox.
+                    All the files you move to that folder on your computer will automatically be available in this app.
+                    The Dropbox app does not need to be installed on your device and will work with it installed too. The synchronization process is entirely managed by the plugin.</p>
+                <p>The Dropbox Sync PhoneGap plugin makes it incredibly easy to write synchronization-based applications:
+                    synchronized photo viewer, synchronized notes, etc.  The plugin now allows you to upload files and folders from your device to Dropbox.
+                </p>
+                <div id="welcomeViewLinkContainer">
+                    <a id="btn-link" class="topcoat-button--large--cta">Link to Dropbox</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="dropboxView-tpl" type="text/x-handlebars-template">
+        <div id="theTopcoatNavBar" class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item left quarter">
+                <a id="btn-back" class="topcoat-icon-button--quiet" href="#">
+                  <span class="topcoat-icon topcoat-icon--back"></span>
+                </a>
+            </div>
+            <div id="centerNavBar" class="topcoat-navigation-bar__item center half">
+                <h1 class="topcoat-navigation-bar__title">
+                    <span style="font-size:14px;position:absolute;left:-30px;">Dropbox Apps Folder</span>
+                </h1>
+            </div>
+            <div class="topcoat-navigation-bar__item right quarter">
+            </div>
+        </div>
+        <div id="containerBelowNavBar">
+            <div id="dropboxView">
+                <div style="position:absolute; right:20px;top:8px;">
+                  <button id="btn-unlink" class="topcoat-button--cta">Unlink</button>
+                </div>
+                <div style="position:absolute; right:140px;top:8px;">
+                  <button id="btn-uploadFiles" class="topcoat-button--cta">Upload</button>
+                </div>
+                <h3 id="path" class="topcoat-list__header">/</h3>
+                <div id="scroller" class="topcoat-list__container">
+                    <ul id="fileList" class="topcoat-list"></ul>
+                    <h3 id="noFiles">No files</h3>
+                </div>
+                <div id="content">
+                    <h3 id="filePath">&nbsp;</h3>
+                    <img id="image" style="display: none;"/>
+                    <div id="text" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="fileList-tpl" type="text/x-handlebars-template">
+        {{#each this}}
+            {{#if isFolder}}
+                <li class="topcoat-list__item">
+                    <a href="#{{encodedPath}}" class="folder">
+                        <img src="img/icon-folder.png" /> {{fileName}}
+                     </a>
+                </li>
+            {{else}}
+                <li class="topcoat-list__item">
+                    <a href="#{{encodedPath}}" class="file">
+                        <img src="img/icon-file.png" /> {{fileName}}
+                     </a>
+                </li>
+            {{/if}}
+        {{/each}}
+    </script>
+
+    <script id="fileUploadView-tpl" type="text/x-handlebars-template">
+        <div id="theTopcoatNavBar" class="topcoat-navigation-bar">
+            <div class="topcoat-navigation-bar__item left quarter">
+                <a id="btn-back" class="topcoat-icon-button--quiet" href="#">
+                  <span class="topcoat-icon topcoat-icon--back"></span>
+                </a>
+            </div>
+            <div id="centerNavBar" class="topcoat-navigation-bar__item center half">
+                <h1 class="topcoat-navigation-bar__title">
+                    <span style="font-size:14px;">Tap &amp; hold a file/folder to upload</span>
+                </h1>
+            </div>
+            <div class="topcoat-navigation-bar__item right quarter">
+            </div>
+        </div>
+        <div id="containerBelowNavBar">
+            <div id="fileUploadView">
+                <div style="position:absolute;right:20px;top:8px;">
+                  <button id="btn-backToDropboxView" class="topcoat-button--cta">Back to Dropbox</button>
+                </div>
+                <h3 id="localPath" class="topcoat-list__header"></h3>
+                <div id="localFileListScroller" class="topcoat-list__container">
+                    <ul id="localFileList" class="topcoat-list"></ul>
+                </div>
+            </div>
+        </div>
+    </script>
+    
+    <script id="localFileList-tpl" type="text/x-handlebars-template">
+        {{#each this}}
+            {{#if isDirectory}}
+                <li class="topcoat-list__item">
+                    <a href="#" class="folder" fullPath="{{fullPath}}" fileName="{{name}}">
+                        <img src="img/icon-folder.png" /> {{name}}
+                     </a>
+                </li>
+            {{else}}
+                <li class="topcoat-list__item">
+                    <a href="#" class="file" fullPath="{{fullPath}}" fileName="{{name}}">
+                        <img src="img/icon-file.png" /> {{name}}
+                     </a>
+                </li>
+            {{/if}}
+        {{else}}
+            <li class="topcoat-list__item" style="padding:5px;">No files found in this directory.</li>
+        {{/each}}
+    </script>
+
+    <div id="loader"><img src="img/AjaxLoader.gif" /></div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="lib/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="lib/fastclick.js"></script>
+    <script type="text/javascript" src="lib/handlebars.js"></script>
+    <script type="text/javascript" src="lib/jquery.tapandhold.js"></script>
+    <script type="text/javascript" src="lib/encoder.js"></script>
+    <script type="text/javascript" src="lib/iscroll.js"></script>
+    <script type="text/javascript" src="lib/pageslider.js"></script>
+    <script type="text/javascript" src="js/dropbox.js"></script>
+    <script type="text/javascript" src="js/views/WelcomeView.js"></script>
+    <script type="text/javascript" src="js/views/DropboxView.js"></script>
+    <script type="text/javascript" src="js/views/FileUploadView.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
